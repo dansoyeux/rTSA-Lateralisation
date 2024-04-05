@@ -1,0 +1,80 @@
+// Excludes the old glenohumeral joint to redefine it with an offset
+MechObjectExclude = 
+arrcat(
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")
+
+);
+
+//Excludes the old GHJoint for in the calibration sequence 
+//Comment if not using MusclesHill model 
+
+Main.HumanModel.Calibration.RightArmCalibration0.ArmCalibrationStudy0.MechObjectExclude =  
+arrcat( 
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")); 
+
+Main.HumanModel.Calibration.RightArmCalibration1.ArmCalibrationStudy1.MechObjectExclude =  
+arrcat( 
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")); 
+
+Main.HumanModel.Calibration.RightArmCalibration2.ArmCalibrationStudy2.MechObjectExclude =  
+arrcat( 
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")); 
+
+Main.HumanModel.Calibration.RightArmCalibration3.ArmCalibrationStudy3.MechObjectExclude =  
+arrcat( 
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")); 
+
+Main.HumanModel.Calibration.RightArmCalibration4.ArmCalibrationStudy4.MechObjectExclude =  
+arrcat( 
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")); 
+
+Main.HumanModel.Calibration.RightArmCalibration5.ArmCalibrationStudy5.MechObjectExclude =  
+arrcat( 
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")); 
+
+
+
+Main.Seg.Scapula = {  
+  
+  // New gh node offseted (offset in mm)
+  AnyRefNode gh_offseted = {
+    // Matrix to rotate the GHReactionCenterNodeRotated in the ISB coordinate system  
+    AnyMat33 Transform_ISB = {{-1,0,0},{0,1,0},{0,0,-1}};
+    
+    // Offset transformed in the scapular coordinate system
+    AnyFloat Offset = .GHReactionCenterNodeRotated.ARel * Transform_ISB * Main.InputVariables.gh_offset' / 1000; 
+    
+    // Offset the original position of the gh node
+    sRel = .gh.sRel + Offset';
+    
+    ARel =  .GHReactionCenterNodeRotated.ARel * Transform_ISB;
+    AnyDrawRefFrame drw = {
+      Visible = Off;
+      RGB = {1,0,0};
+    };  
+    
+  }; //gh_offseted
+  
+}; //Seg.Scapula
+
+
+Main.Jnt = {
+  
+  // Definition of GH joint
+  AnySphericalJoint MyGlenoHumeralJoint = {
+    AnyRefNode &scapula_gh = ..Seg.Scapula.gh_offseted;
+    AnyRefNode &humerus_gh = ..Seg.Humerus.gh; 
+    //These are the reactions of the GH joint they are normally set to "Off Off Off" if the file 
+    // GHReactions.any is being used, if this is not the case the reactions should be set to "On On On"
+    Constraints.Reaction.Type={Off,Off,Off};
+    Orientation = {
+      // These settings are kept to mimic the  
+      // previous implementation.
+      Type = RotAxesAngles;
+      Axis1 = y;
+      Axis2 = z;
+      Axis3 = y;
+    };
+  };
+  
+}; //Jnt

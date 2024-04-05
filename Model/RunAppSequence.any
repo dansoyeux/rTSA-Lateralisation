@@ -1,0 +1,47 @@
+ // Switch to define an automatic save of results to the Output folder
+#ifndef AutoSaveOption 
+#define AutoSaveOption 0
+#endif
+
+
+/**Execute this operation to run the model in the intended operation sequence.  
+It is also possible to run operations seperately, by manual selections in the operation tree*/
+AnyOperationSequence RunApplication = {
+  
+  /*This operation calibrates the muscles in the model if these are of the type AnyMuscleModel3E.
+  This will just be an empty operation if the model is using a muscle type that does not require calibration.*/
+  AnyOperation &CalibrationAnal = Main.HumanModel.Calibration.CalibrationSequence;  
+  
+  ///This operation is the inverse dynamic analysis
+  AnyOperation &InvAnal=Main.Study.InverseDynamics;
+  
+  
+  
+  #if AutoSaveOption 
+    // Check that file does not exist, otherwise makes a new file with a number at the end of its name (i.e. NameFile_#filenumber.txt)
+    #include "Output_CheckName.any"
+    AnyString OutputFileName = get_filename({ANYBODY_PATH_OUTPUT + Main.InputVariables.ResultFileName},{"txt"});
+    
+  /// This operation saves the output of the study to an h5 file in the Output folder
+  AnyOperationMacro save = {
+        MacroStr={ "classoperation Main.Study.Output " + strquote("Save data") + " --type=Deep" + " --file="+ strquote(ANYBODY_PATH_OUTPUT + .OutputFileName + ".anydata.h5")};
+  };
+  #endif
+};
+
+AnyOperationSequence Loadh5 = {
+  AnyOperationMacro LoadData ={
+    MacroStr = {"classoperation Main.Study.Output " + strquote("Load data") + "--file=" + strquote(ANYBODY_PATH_OUTPUT + Main.InputVariables.ResultFileName + ".anydata.h5")};
+  };
+};
+
+// Operation to load and replay a previous .h5 result file
+AnyOperationSequence LoadAndReplay = {
+  
+  AnyOperation &Load=Main.Loadh5;
+  AnyOperation &Replay=Main.Study.Replay;
+  
+};
+
+
+

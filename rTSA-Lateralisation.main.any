@@ -1,0 +1,73 @@
+#include "libdef.any"
+
+Main = 
+{  
+  // Model description 
+  #include "Model\Description.any"
+  
+  // Input variables to control simulation properties
+  #include "Input\InputVariables.any"
+  
+  // Body Model configuration:
+  #include "Model/BodyModelConfiguration.any"
+
+  // Using your own Mannequin.any file in the Model folder of your model
+  #include "Model\Mannequin.any"
+  
+  // Include default human model
+  #include "<ANYBODY_PATH_BODY>\HumanModel.any"
+
+  AnyFolder Model = 
+  {
+    // A link to the human model
+    AnyFolder &BodyModel = .HumanModel.BodyModel;
+    AnyFolder &DefaultMannequinDrivers = .HumanModel.DefaultMannequinDrivers;
+ 
+    // Environment files are used to include objects surrounding human
+    #include "Model\Environment.any"   
+ 
+    AnyFolder ModelEnvironmentConnection = 
+    {
+      //'JointsAndDrivers.any' file can include all kinematic constraints such as joints and drivers
+      #include "Model\JointsAndDrivers.any"
+      // Additional reactions which are required to run the inverse dynamics analysis
+      #include "Model\Reactions.any"
+    };
+  }; // Model
+  
+  // Shortcuts
+  AnyFolder &Jnt = Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt;
+  AnyFolder &Seg = Main.HumanModel.BodyModel.Right.ShoulderArm.Seg;
+  AnyFolder &Mus = Main.HumanModel.BodyModel.Right.ShoulderArm.Mus;
+ 
+  AnyBodyStudy Study = 
+  {
+    // Shortcuts
+    AnyFolder &Model = .Model;  
+    AnyFolder &Jnt = Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt;
+    AnyFolder &Seg = Main.HumanModel.BodyModel.Right.ShoulderArm.Seg;
+    AnyFolder &Mus = Main.HumanModel.BodyModel.Right.ShoulderArm.Mus;
+
+    // Evaluates the arm muscles moment arms
+    #include "Model/EvaluateAbductionMomentArm.any"
+    
+    Gravity={0.0, -9.81, 0.0};
+    
+    nStep = 60;
+    
+    // Deactivates the old glenohumeral joint to redefine it with an offset
+    #include "Model\GHScapulaOffset.any"
+       
+    // Mesure of abduction angle
+    AnyVar rot = Main.HumanModel.BodyModel.Interface.Right.GlenohumeralAbduction.Pos[0]; // Total Abduction angle [rad]
+    AnyVar rotD= rot*180/pi; // Total Abduction angle [deg]
+
+    
+    #if AutoSaveOption == 1
+    #include "Model\AnyFileOut.any"
+    #endif
+  }; //Study
+
+    #include "Model\RunAppSequence.any"
+}; //Main
+

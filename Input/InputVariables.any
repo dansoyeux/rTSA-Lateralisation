@@ -1,0 +1,31 @@
+AnyFolder InputVariables = {
+
+  
+/*------------------------scapular Glenohumeral center of rotation offset------------------------
+Offset in the ISB coordinate system (Anterior, Superior, Lateral) <=> (x, y, z)
+offset in mm
+
+*/
+
+AnyVec3 gh_offset = DesignVar({0.0, 0.0, 10.0});
+
+/*------------------------TYPE OF ABDUCTION------------------------
+CoronalAbduction
+ScapularPlaneAbduction
+-------------------------------------------------------------------
+*/
+
+#define MovementType ScapularPlaneAbduction
+
+/*------------------------START AND END ANGLE OF ABDUCTION------------------------*/
+AnyVar startangle = DesignVar(15);
+AnyVar endangle = DesignVar(160);
+
+
+/*------------------------SAVE OPTION------------------------*/
+#define AutoSaveOption 0
+
+// Name of the results files that will be created
+AnyString ResultFileName = "Results_" + "AP_" + strval(gh_offset[0],"%.2f") + "_IS_" + strval(gh_offset[1],"%.2f") + "_ML_" + strval(gh_offset[0],"%.2f");
+
+}; //InputVariables

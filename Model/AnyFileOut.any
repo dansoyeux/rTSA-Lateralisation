@@ -1,0 +1,36 @@
+
+
+// Save in a *.txt file
+AnyOutputFile FileOut = {
+  FileName = Main.RunApplication.OutputFileName + ".txt";
+  
+  NumberFormat.Digits = 6;
+  
+  // Header
+  Header = {
+    TitleSectionOnOff = On;
+    ConstSectionOnOff = On;
+    VarSectionOnOff = On;
+    ColumnNamesOnOff = On;  //swicth the column names on/off
+    LinePrefix = "";
+    ShortenNamesOnOff = Off;
+    
+  };     
+  //-----------------SIMULATIONS PARAMETERS----------------------------
+  // Input Values 
+  AnyVar nStep = Main.Study.nStep;
+
+  // Movement type
+      
+  //----------------SIMULATION MEASUREMENTS--------------
+    
+  AnyVec3 ghOffset = Main.InputVariables.gh_offset;
+  
+  
+  
+}; //FileOut
+
+
+
+
+

@@ -1,0 +1,63 @@
+AnyFolder Drivers = 
+{
+  
+  AnyFolder &InputVariables = Main.InputVariables;
+
+  // Coronal abduction
+  
+  #if MovementType == CoronalAbduction
+  AnyKinEqSimpleDriver GHAbduction = {
+    
+    AnyKinMeasure& ref1 =...BodyModel.Interface.Right.GlenohumeralAbduction;
+    
+    DriverPos = {.InputVariables.startangle/180*pi};
+    DriverVel = {(.InputVariables.endangle - .InputVariables.startangle)/180*pi /Main.Study.tEnd};
+    Reaction.Type = {Off};
+  };
+  
+  #endif // Coronal abduction
+  
+  
+  #if MovementType == ScapularPlaneAbduction
+  
+  // sets the external rotation and flexion so that the abduction is in the scapular plane
+  // Sets the flexion to 0
+  AnyKinEqSimpleDriver GHFlexion = {
+    
+    AnyKinMeasureLinComb& ref1 =...BodyModel.Interface.Right.ScapulaHumerus.PlaneOfElevation;
+    
+    DriverPos = {0};
+    DriverVel = {0};
+    Reaction.Type = {Off};
+    
+  };
+  
+  // Sets the axial rotation to 0
+  AnyKinEqSimpleDriver GHAxialRotation={
+    
+    AnyKinMeasureLinComb &ref3 =...BodyModel.Interface.Right.ScapulaHumerus.InternalAxialRotation;
+    
+    DriverPos=pi/180*{0
+    };
+    DriverVel = pi/180*{0 
+    };
+    Reaction.Type={Off};
+  };
+  
+  
+  AnyKinEqSimpleDriver GHAbduction = {
+    
+    AnyKinMeasure& ref1 =...BodyModel.Interface.Right.GlenohumeralAbduction;
+    
+    DriverPos = {.InputVariables.startangle/180*pi};
+    DriverVel = {(.InputVariables.endangle - .InputVariables.startangle)/180*pi /Main.Study.tEnd};
+    Reaction.Type = {Off};
+  };
+  
+  #endif // Coronal abduction
+  
+  
+  
+};
+
+

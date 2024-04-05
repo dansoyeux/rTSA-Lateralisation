@@ -1,0 +1,31 @@
+#path __BM_PLUGIN_FILE__ "BodyModelConfiguration.any"
+#define BM_CONFIG_PLUGIN __BM_PLUGIN_FILE__
+
+// -----------------------------------------------------------------------------------
+// The BodyModel configuration can be modified using BodyModel GUI plugin
+// or by manually editing this file.
+//
+// Please see this this file for more information on the options:
+// #path HTML_DOC "<AMMR_PATH_DOC>/bm_config/index.html"
+// -----------------------------------------------------------------------------------
+
+// Enable the TLEM2 lower extremity model
+#define BM_LEG_MODEL _LEG_MODEL_TLEM2_
+#define BM_ARM_LEFT OFF
+#define BM_LEG_LEFT OFF
+#define BM_LEG_RIGHT OFF
+#define BM_ARM_MUSCLES_RIGHT _MUSCLES_3E_HILL_
+#define BM_ARM_SHOULDER_RHYTHM ON
+
+#define BM_MANNEQUIN_DRIVER_GLENOHUMERAL_ABDUCTION_RIGHT OFF
+
+// Deactivates the mannequin drivers on GHFlexion and ext rotation to reset them so that the abduction is in the scapular plane
+#if MovementType == ScapularPlaneAbduction
+#define BM_MANNEQUIN_DRIVER_GLENOHUMERAL_FLEXION_RIGHT OFF
+#define BM_MANNEQUIN_DRIVER_GLENOHUMERAL_EXTERNAL_ROTATION_RIGHT OFF
+
+#endif
+
+
+#define BM_TRUNK_LUMBAR_MUSCLES OFF
+#define BM_TRUNK_CERVICAL_MUSCLES _MUSCLES_SIMPLE_
