@@ -1,4 +1,4 @@
-#include "../libdef.any"
+#include "<ANYBODY_PATH_INSTALLDIR>/AMMR/libdef.any"
 
 #if AMMR_VERSION_MAJOR < 2 |  (AMMR_VERSION_MAJOR <= 2 & AMMR_VERSION_MINOR < 3)
 
