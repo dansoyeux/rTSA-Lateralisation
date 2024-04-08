@@ -2,13 +2,13 @@ AnyFolder EvaluateMomentArms = {
   
   AnyFolder &Mus=Main.HumanModel.BodyModel.Right.ShoulderArm.Mus;
  
-  AnyFolder &InputVariables = Main.InputVariables;
+  AnyFolder &Drivers = Main.Model.ModelEnvironmentConnection.Drivers;
   
   // Formule pour calculer la vitesse du driver, 
   // Me pas referencer le driver directement sinon lors du load ferait division par 0
   // Mettre la meme formule que celle mise dans la vitesse angulaire du driver d'abduction dans AngularVelocity
   
-  AnyVar AngularVelocity = (InputVariables.endangle - InputVariables.startangle)/180*pi /Main.Study.tEnd;
+  AnyVar AngularVelocity = (Drivers.endangle - Drivers.startangle)/180*pi /Main.Study.tEnd;
   
   #define _CODE_MACRO_(name) \
   // Creation de la variable MomentArm dans le dossier du muscle

@@ -19,11 +19,12 @@ AnyOutputFile FileOut = {
   //-----------------SIMULATIONS PARAMETERS----------------------------
   // Input Values 
   AnyVar nStep = Main.Study.nStep;
-
   // Movement type
-      
+  AnyString Movement = Main.Model.ModelEnvironmentConnection.Drivers.Movement;
+  
+  AnyVar MuscleRecruitmentType = Main.Study.InverseDynamics.Criterion.Type;
+  
   //----------------SIMULATION MEASUREMENTS--------------
-    
   AnyVec3 ghOffset = Main.InputVariables.gh_offset;
   
   

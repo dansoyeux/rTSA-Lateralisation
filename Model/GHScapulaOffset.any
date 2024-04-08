@@ -33,7 +33,7 @@ arrcat(
 ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")); 
 
 
-
+// New nodes on the scapula for the offseted gh 
 Main.Seg.Scapula = {  
   
   // New gh node offseted (offset in mm)
@@ -45,11 +45,11 @@ Main.Seg.Scapula = {
     AnyFloat Offset = .GHReactionCenterNodeRotated.ARel * Transform_ISB * Main.InputVariables.gh_offset' / 1000; 
     
     // Offset the original position of the gh node
-    sRel = .gh.sRel + Offset';
+    sRel = .GHReactionCenterNodeRotated.sRel + Offset';
     
     ARel =  .GHReactionCenterNodeRotated.ARel * Transform_ISB;
     AnyDrawRefFrame drw = {
-      Visible = Off;
+      Visible = On;
       RGB = {1,0,0};
     };  
     
@@ -58,6 +58,7 @@ Main.Seg.Scapula = {
 }; //Seg.Scapula
 
 
+// New glenohumeral joint
 Main.Jnt = {
   
   // Definition of GH joint
