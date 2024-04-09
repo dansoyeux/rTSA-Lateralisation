@@ -39,7 +39,8 @@ Main =
   AnyFolder &Jnt = Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt;
   AnyFolder &Seg = Main.HumanModel.BodyModel.Right.ShoulderArm.Seg;
   AnyFolder &Mus = Main.HumanModel.BodyModel.Right.ShoulderArm.Mus;
- 
+  
+  
   AnyBodyStudy Study = 
   {
     // Shortcuts
@@ -65,6 +66,13 @@ Main =
     #if AutoSaveOption == 1
     #include "Model\AnyFileOut.any"
     #endif
+ 
+
+    
+    
+
+  
+  
   }; //Study
 
     #include "Model\RunAppSequence.any"

@@ -19,8 +19,8 @@ AnyOperationSequence RunApplication = {
     AnyFolder &InputVariables = Main.InputVariables;
 
   // Name of the file to load/save depending on the movement and gh offset  
-  AnyString ResultFileName = DesignVar("Results_" + Drivers.Movement +"_IS_" + strval(InputVariables.gh_offset[1],"%.1f") + "_ML_" + strval(InputVariables.gh_offset[0],"%.1f"));
-
+  AnyString ResultFileName = DesignVar("Results_" + Drivers.Movement +"_IS_" + strval(InputVariables.gh_offset[1],"%.0f") + "_ML_" + strval(InputVariables.gh_offset[2],"%.0f"));
+  
   #if AutoSaveOption 
     // Check that file does not exist, otherwise makes a new file with a number at the end of its name (i.e. NameFile_#filenumber.txt)
     #include "Output_CheckName.any"
@@ -28,7 +28,7 @@ AnyOperationSequence RunApplication = {
     
   /// This operation saves the output of the study to an h5 file in the Output folder
   AnyOperationMacro save = {
-        MacroStr={ "classoperation Main.Study.Output " + strquote("Save data") + " --type=Deep" + " --file="+ strquote(ANYBODY_PATH_OUTPUT + .OutputFileName + ".anydata.h5")};
+        MacroStr={ "classoperation Main.Study.Output " + strquote("Save data") + " --type=Deep" + " --file="+ strquote(.OutputFileName + ".anydata.h5")};
   };
   #endif
 };

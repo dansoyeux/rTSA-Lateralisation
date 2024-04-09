@@ -4,12 +4,20 @@ AnyFolder InputVariables = {
 #define rTSA 1  
 #endif
 
+/*------------------------SAVE OPTION------------------------*/
+#ifndef AutoSaveOption
+#define AutoSaveOption 0
+#endif
+
 /*------------------------scapular Glenohumeral center of rotation offset------------------------
 Offset in the ISB coordinate system (Anterior, Superior, Lateral) <=> (x, y, z)
 offset in mm
+
+Latéralisation (+) /médialisation (-) : -10 mm, -5 mm, 0 mm, 5 mm
+Distalisation (-) (infériorisation) : 0 mm, -2 mm, -4 mm, -6 mm
 */
 
-AnyVec3 gh_offset = DesignVar({0.0, 0.0, 0.0});
+AnyVec3 gh_offset = DesignVar({0.0, 0.0, 5.0});
 
 /*------------------------TYPE OF ABDUCTION------------------------
 CoronalElevation
@@ -18,7 +26,7 @@ SagitalElevation
 -------------------------------------------------------------------
 */
 #ifndef MovementType
-#define MovementType SagitalElevation
+#define MovementType CoronalElevation
 #endif
 
 /*------------------------START AND END ANGLE OF ABDUCTION------------------------*/
@@ -30,10 +38,5 @@ AnyVar scapular_elevation_endangle = DesignVar(160);
 
 AnyVar sagital_elevation_startangle = DesignVar(0);
 AnyVar sagital_elevation_endangle = DesignVar(100);
-
-/*------------------------SAVE OPTION------------------------*/
-#ifndef AutoSaveOption
-#define AutoSaveOption 0
-#endif
 
 }; //InputVariables

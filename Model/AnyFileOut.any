@@ -22,11 +22,12 @@ AnyOutputFile FileOut = {
   // Movement type
   AnyString Movement = Main.Model.ModelEnvironmentConnection.Drivers.Movement;
   
-  AnyVar MuscleRecruitmentType = Main.Study.InverseDynamics.Criterion.Type;
+  AnyEnumMuscleRecruitmentType MuscleRecruitmentType = Main.Study.InverseDynamics.Criterion.Type;
   
   //----------------SIMULATION MEASUREMENTS--------------
-  AnyVec3 ghOffset = Main.InputVariables.gh_offset;
-  
+  AnyVar anteriorisation = Main.InputVariables.gh_offset[0];
+  AnyVar distalisation = Main.InputVariables.gh_offset[1];
+  AnyVar medialisation = Main.InputVariables.gh_offset[2];
   
   
 }; //FileOut
