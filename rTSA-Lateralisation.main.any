@@ -66,12 +66,6 @@ Main =
     #if AutoSaveOption == 1
     #include "Model\AnyFileOut.any"
     #endif
- 
-
-    
-    
-
-  
   
   }; //Study
 

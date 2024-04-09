@@ -29,6 +29,11 @@ AnyOutputFile FileOut = {
   AnyVar distalisation = Main.InputVariables.gh_offset[1];
   AnyVar medialisation = Main.InputVariables.gh_offset[2];
   
+  #if GHReactionsOn ==1
+  AnySwitch GHReaction = On;
+  #else
+  AnySwitch GHReaction = Off;
+  #endif
   
 }; //FileOut
 

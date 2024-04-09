@@ -4,9 +4,14 @@ AnyFolder InputVariables = {
 #define rTSA 1  
 #endif
 
+//Chose to deactivate the GHReactionForce modeled by muscles
+#ifndef GHReactionsOn
+#define GHReactionsOn 0
+#endif
+
 /*------------------------SAVE OPTION------------------------*/
 #ifndef AutoSaveOption
-#define AutoSaveOption 0
+#define AutoSaveOption 1
 #endif
 
 /*------------------------scapular Glenohumeral center of rotation offset------------------------

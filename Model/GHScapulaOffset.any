@@ -1,9 +1,22 @@
 // Excludes the old glenohumeral joint to redefine it with an offset
+
+// Deactivated the GHReaction forces
+#if GHReactionsOn == 0
+MechObjectExclude = 
+arrcat(ObjSearchRecursive("Main.HumanModel.BodyModel.SelectedOutput.Right.ShoulderArm.JointReactionForce.GlenoHumeral_*","AnyMechObject"),
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions","*","AnyMechObject"),
+ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject"));
+#endif
+
+
+// Keep the GHReaction forces activated
+#if GHReactionsOn == 1
 MechObjectExclude = 
 arrcat(
 ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")
 
 );
+#endif
 
 //Excludes the old GHJoint for in the calibration sequence 
 //Comment if not using MusclesHill model 
@@ -88,10 +101,19 @@ Main.Jnt = {
   AnySphericalJoint MyGlenoHumeralJoint = {
     AnyRefNode &scapula_gh = ..Seg.Scapula.gh_offseted;
     AnyRefNode &humerus_gh = ..Seg.Humerus.gh_rTSA; 
+
     //These are the reactions of the GH joint they are normally set to "Off Off Off" if the file 
     // GHReactions.any is being used, if this is not the case the reactions should be set to "On On On"
-    Constraints.Reaction.Type={Off,Off,Off};
-    Orientation = {
+ #if GHReactionsOn == 1    
+Constraints.Reaction.Type={Off,Off,Off};
+ #endif
+
+// Reactivates the ghjoint glenohumeral joint reaction forces   
+#if GHReactionsOn ==0
+Constraints.Reaction.Type={On,On,On};
+#endif
+
+Orientation = {
       // These settings are kept to mimic the  
       // previous implementation.
       Type = RotAxesAngles;
