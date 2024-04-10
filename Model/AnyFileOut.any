@@ -25,9 +25,9 @@ AnyOutputFile FileOut = {
   AnyEnumMuscleRecruitmentType MuscleRecruitmentType = Main.Study.InverseDynamics.Criterion.Type;
   
   //----------------SIMULATION MEASUREMENTS--------------
-  AnyVar anteriorisation = Main.InputVariables.gh_offset[0];
-  AnyVar distalisation = Main.InputVariables.gh_offset[1];
-  AnyVar medialisation = Main.InputVariables.gh_offset[2];
+  AnyVar Anteriorisation = anteriorisation;
+  AnyVar Distalisation = distalisation;
+  AnyVar Medialisation = medialisation;
   
   #if GHReactionsOn ==1
   AnySwitch GHReaction = On;

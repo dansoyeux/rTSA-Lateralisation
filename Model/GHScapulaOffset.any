@@ -86,7 +86,7 @@ Main.Seg.Humerus = {
     // the multiply by Humerus.Axes to convert in local humeral coordinate system
     sRel = (Centernode_r - Humerus_r) * Humerus_Axes; // {-0.02159875, 0.003294611, 0.01360848}
     AnyDrawRefFrame drw = {
-      Visible=On;
+      Visible=Off;
       RGB = {0, 1,0};
     };
     
@@ -109,7 +109,7 @@ Constraints.Reaction.Type={Off,Off,Off};
  #endif
 
 // Reactivates the ghjoint glenohumeral joint reaction forces   
-#if GHReactionsOn ==0
+#if GHReactionsOn == 0
 Constraints.Reaction.Type={On,On,On};
 #endif
 

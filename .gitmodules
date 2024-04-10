@@ -1,0 +1,3 @@
+[submodule "Output/AnybodyPackage"]
+	path = Output/AnybodyPackage
+	url = https://github.com/dansoyeux/Anybody_Package
