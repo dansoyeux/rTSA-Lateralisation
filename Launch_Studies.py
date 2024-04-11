@@ -25,11 +25,9 @@ MovementType_list = ["CoronalElevation", "ScapularElevation", "SagitalElevation"
 
 # %% Cas de simulation
 
-medial_offset_list = [-10, -5, 0, 5]
-superior_offset_list = [-6, -4, -2, 0]
-
-# medial_offset_list = [5]
-# superior_offset_list = [-2]
+glenoid_lateralisation_offset_list = [-10, -5, 0, 5]
+glenoid_superior_offset_list = [-6, -4, -2, 0]
+humeral_lateralisation_list = [0, 5, 10, 15]
 
 # %% Script lancement simulation
 
@@ -37,19 +35,20 @@ macrolist = []
 
 for MovementType in MovementType_list:
 
-    for medial_offset in medial_offset_list:
+    for glenoid_medial_offset in glenoid_medial_offset_list:
 
-        for superior_offset in superior_offset_list:
+        for glenoid_superior_offset in glenoid_superior_offset_list:
 
-            ResultFileName = f"{MovementType}_IS_{superior_offset}_ML_{medial_offset}"
+            ResultFileName = f"{MovementType}_IS_{glenoid_superior_offset}_ML_{glenoid_medial_offset}"
 
             macrolist.append([
                 Load('rTSA-Lateralisation.main.any',
                      defs={'MovementType': f"{MovementType}",
                            'ResultFileName': f'"{ResultFileName}"',
-                           'anteriorisation': 0,
-                           'distalisation': superior_offset,
-                           'medialisation': medial_offset,
+                           'glenoid_anteriorisation': 0,
+                           'glenoid_distalisation': glenoid_superior_offset,
+                           'glenoid_medialisation': glenoid_medial_offset,
+                           'humeral_lateralisation': glenoid_medial_offset,
                            'rTSA': 1,
                            'GHReactionsOn': 0,
                            'AutoSaveOption': 1,

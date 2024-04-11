@@ -11,7 +11,7 @@ AnyFolder InputVariables = {
 
 /*------------------------SAVE OPTION------------------------*/
 #ifndef AutoSaveOption
-#define AutoSaveOption 1
+#define AutoSaveOption 0
 #endif
 
 /*------------------------scapular Glenohumeral center of rotation offset------------------------
@@ -22,22 +22,38 @@ Latéralisation (+) /médialisation (-) : -10 mm, -5 mm, 0 mm, 5 mm
 Distalisation (-) (infériorisation) : 0 mm, -2 mm, -4 mm, -6 mm
 */
 
-#ifndef anteriorisation
-#define anteriorisation 0
+#ifndef glenoid_anteriorisation
+#define glenoid_anteriorisation 0
 #endif
 
-#ifndef distalisation
-#define distalisation 0
+#ifndef glenoid_distalisation
+#define glenoid_distalisation 0
 #endif
 
-#ifndef medialisation
-#define medialisation 0
+#ifndef glenoid_lateralisation
+#define glenoid_lateralisation 0
 #endif
 
-AnyVec3 gh_offset = DesignVar({anteriorisation, distalisation, medialisation});
+// Glenoid offset in mm
+AnyVec3 glenoid_offset = DesignVar({glenoid_anteriorisation, glenoid_distalisation, glenoid_lateralisation});
+
+#ifndef humeral_anteriorisation
+#define humeral_anteriorisation 0
+#endif
+
+#ifndef humeral_distalisation
+#define humeral_distalisation 0
+#endif
+
+#ifndef humeral_lateralisation
+#define humeral_lateralisation 0
+#endif
+
+// Humeral offset in millimeter
+AnyVec3 humeral_offset = DesignVar({-humeral_lateralisation, humeral_distalisation, -humeral_anteriorisation});
 
 /*------------------------TYPE OF ABDUCTION------------------------
-CoronalElevation6
+CoronalElevation
 ScapularElevation
 SagitalElevation
 -------------------------------------------------------------------

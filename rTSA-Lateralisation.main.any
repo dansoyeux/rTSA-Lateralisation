@@ -58,7 +58,7 @@ Main =
     
     #if rTSA == 1
     // Deactivates the old glenohumeral joint to redefine it with an offset
-    #include "Model\GHScapulaOffset.any"
+    #include "Model\GHCoROffset.any"
     #endif
 
 //    InverseDynamics.Criterion.Type = MR_MinMaxStrict;
