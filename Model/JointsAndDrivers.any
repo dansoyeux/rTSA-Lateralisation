@@ -1,8 +1,8 @@
 AnyFolder Drivers = 
 {
-  
+
   AnyFolder &InputVariables = Main.InputVariables;
-  
+    
   /*---------------------------Coronal elevation---------------------------*/
   #if MovementType == CoronalElevation
   AnyString Movement = "CoronalElevation";

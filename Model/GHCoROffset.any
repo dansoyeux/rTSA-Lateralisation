@@ -85,8 +85,11 @@ Main.Seg.Humerus = {
     //Humeral center of rotation in rTSA reference position
     // (global_centernode - global_humerus position) = offset between the two nodes in the global coordinate system
     // the multiply by Humerus.Axes to convert in local humeral coordinate system
-    AnyVec3 humerus_cor_pos_reference = (Centernode_r - Humerus_r) * Humerus_Axes; //after initialpos for 15deg abduction = {-0.02159875, 0.003294611, 0.01360848}
+//    AnyVec3 humerus_cor_pos_reference = (Centernode_r - Humerus_r) * Humerus_Axes; //after initialpos for 15deg abduction = {-0.02159875, 0.003294611, 0.01360848}
      
+    // Position reference ajustee pour correspondre a distance minimale de AD dans l'article de werthel et al. (11.1 mm pour le delta III)
+    AnyVec3 humerus_cor_pos_reference = {-0.0111, 0.01360848, 0.0};  
+
     sRel = humerus_cor_pos_reference + Main.InputVariables.humeral_offset/1000; 
     AnyDrawRefFrame drw = {
       Visible=On;
