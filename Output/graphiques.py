@@ -46,9 +46,16 @@ matplotlib.rcParams.update({'legend.fontsize': 10})
 # Noms des couleurs : https://matplotlib.org/stable/gallery/color/named_colors.html
 # Types de marqueurs : https://matplotlib.org/stable/api/markers_api.html
 # Type de lignes : https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html
-SimulationsLineStyleDictionary = {"NOM_DE_LA_SIMULATION_1": {"color": "NOM_DE_LA_COULEUR", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1},
-                                  "NOM_DE_LA_SIMULATION_2": {"color": "NOM_DE_LA_COULEUR", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1},
-                                  "Wickham": {"color": "black", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 2}
+SimulationsLineStyleDictionary = {"Hum : 0 Lat ; Glen : -10 Lat, 0 Sup": {"color": "red", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
+                                  "Hum : 0 Lat ; Glen : -10 Lat, -6 Sup": {"color": "green", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
+                                  "Hum : 0 Lat ; Glen : 5 Lat, 0 Sup": {"color": "blue", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
+                                  "Hum : 0 Lat ; Glen : 5 Lat, -6 Sup": {"color": "black", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
+
+                                  "Hum : 15 Lat ; Glen : -10 Lat, 0 Sup": {"color": "red", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
+                                  "Hum : 15 Lat ; Glen : -10 Lat, -6 Sup": {"color": "green", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
+                                  "Hum : 15 Lat ; Glen : 5 Lat, 0 Sup": {"color": "blue", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
+                                  "Hum : 15 Lat ; Glen : 5 Lat, -6 Sup": {"color": "black", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
+
                                   }
 
 # Texte de description des simulations dans les légendes
