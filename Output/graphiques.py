@@ -18,7 +18,7 @@ from Anybody_Package.Anybody_Graph.Tools import save_all_active_figures
 
 from Anybody_Package.Anybody_LoadOutput.Tools import result_dictionary_to_excel
 
-from Anybody_Package.Anybody_LoadOutput.Tools import get_case_result_dictionary_variables
+from Anybody_Package.Anybody_LoadOutput.Tools import get_result_dictionary_variables_informations
 
 import matplotlib
 
@@ -50,23 +50,29 @@ matplotlib.rcParams.update({'legend.fontsize': 10})
 # Noms des couleurs : https://matplotlib.org/stable/gallery/color/named_colors.html
 # Types de marqueurs : https://matplotlib.org/stable/api/markers_api.html
 # Type de lignes : https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html
-SimulationsLineStyleDictionary = {"Hum : 0 Lat ; Glen : -10 Lat, 0 Sup": {"color": "red", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
-                                  "Hum : 0 Lat ; Glen : -10 Lat, -6 Sup": {"color": "green", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
-                                  "Hum : 0 Lat ; Glen : 5 Lat, 0 Sup": {"color": "blue", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
-                                  "Hum : 0 Lat ; Glen : 5 Lat, -6 Sup": {"color": "black", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
+SimulationsLineStyleDictionary = {"H0Lat G-10Lat G0Sup": {"color": "red", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
+                                  "H0Lat G-10Lat G6Sup": {"color": "green", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
+                                  "H0Lat G5Lat G0Sup": {"color": "blue", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
+                                  "H0Lat G5Lat G6Sup": {"color": "black", "marker": "", "markersize": 1, "linestyle": "-", "linewidth": 1.5},
 
-                                  "Hum : 15 Lat ; Glen : -10 Lat, 0 Sup": {"color": "red", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
-                                  "Hum : 15 Lat ; Glen : -10 Lat, -6 Sup": {"color": "green", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
-                                  "Hum : 15 Lat ; Glen : 5 Lat, 0 Sup": {"color": "blue", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
-                                  "Hum : 15 Lat ; Glen : 5 Lat, -6 Sup": {"color": "black", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
+                                  "H15Lat G-10Lat G0Sup": {"color": "red", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
+                                  "H15Lat G-10Lat G6Sup": {"color": "green", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
+                                  "H15Lat G5Lat G0Sup": {"color": "blue", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
+                                  "H15Lat G5Lat G6Sup": {"color": "black", "marker": "", "markersize": 1, "linestyle": "--", "linewidth": 1.5},
 
                                   }
 
 # Texte de description des simulations dans les légendes
-SimulationDescriptionDictionary = {"NOM_DE_LA_SIMULATION_1": "TEXTE_DE_DESCRIPTION_1",
-                                   "NOM_DE_LA_SIMULATION_2": "TEXTE_DE_DESCRIPTION_2",
-                                   "Wickham": "Wickham et al. 2010, n=24",
-                                   "Bergmann": "Bergmann et al. 2007"
+SimulationDescriptionDictionary = {"H0Lat G-10Lat G0Sup": "Hum : 0 Lat ; Glen : -10 Lat, 0 Sup",
+                                   "H0Lat G-10Lat G6Sup": "Hum : 0 Lat ; Glen : -10 Lat, 6 Sup",
+                                   "H0Lat G5Lat G0Sup": "Hum : 0 Lat ; Glen : 5 Lat, 0 Sup",
+                                   "H0Lat G5Lat G6Sup": "Hum : 0 Lat ; Glen : 5 Lat, 6 Sup",
+
+                                   "H15Lat G-10Lat G0Sup": "Hum : 15 Lat ; Glen : -10 Lat, 0 Sup",
+                                   "H15Lat G-10Lat G6Sup": "Hum : 15 Lat ; Glen : -10 Lat, 6 Sup",
+                                   "H15Lat G5Lat G0Sup": "Hum : 15 Lat ; Glen : 5 Lat, 0 Sup",
+                                   "H15Lat G5Lat G6Sup": "Hum : 15 Lat ; Glen : 5 Lat, 6 Sup",
+
                                    }
 
 # Fonctions pour définir les légendes et styles des graphiques en fonction des noms des simulations dans les dictionnaires
@@ -168,6 +174,8 @@ Muscles_Extra = ["Sternocleidomastoid sternum",
 # %% Sauvegarde des résultats dans excel
 
 # Sauvegarde des résultats dans excel
-result_dictionary_to_excel(Results["Coronal Elevation"], "Coronal Elevation")
+# result_dictionary_to_excel(Results["Coronal Elevation"], "Coronal Elevation")
 # result_dictionary_to_excel(Results["Scapular Elevation"], "Scapular Elevation")
 # result_dictionary_to_excel(Results["Sagital Elevation"], "Sagital Elevation")
+
+variables_informations, muscle_variables_informations = get_result_dictionary_variables_informations(Results["Sagital Elevation"])

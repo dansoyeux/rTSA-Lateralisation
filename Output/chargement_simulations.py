@@ -140,7 +140,7 @@ Results_Flexion = load_simulation_cases(SaveDataDir, Files_Flexion, CaseNames, V
 
 Results = {"CoronalElevation": Results_Abduction, "ScapularElevation": Results_Scapular, "SagitalElevation": Results_Flexion}
 
-# Ration d'instabilité
+# %% Ratio d'instabilité
 for movement in MovementType_list:
     for case in CaseNames:
         current_result = Results[movement][case]
