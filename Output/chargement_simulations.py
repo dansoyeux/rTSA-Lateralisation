@@ -12,6 +12,8 @@ from Anybody_Package.Anybody_LoadOutput.Tools import array_to_dictionary
 from Anybody_Package.Anybody_LoadOutput.LoadLiterature import load_literature_data
 from Anybody_Package.Anybody_LoadOutput.LoadOutput import combine_simulation_cases
 
+from Anybody_Package.Anybody_LoadOutput.Tools import result_dictionary_to_excel
+
 import numpy as np
 
 import pandas as pd
@@ -125,7 +127,7 @@ for humeral_lateral_offset in glenoid_lateral_offset_list:
         for glenoid_superior_offset in glenoid_superior_offset_list:
 
             # Nom des simulations
-            CaseNames.append(f"Hum : {humeral_lateral_offset} Lat ; Glen : {glenoid_lateral_offset} Lat, {glenoid_superior_offset} Sup")
+            CaseNames.append(f"H{humeral_lateral_offset}Lat G{glenoid_lateral_offset}Lat G{glenoid_superior_offset}Sup")
 
             # Nom des fichiers par mouvements
             Files_Abduction.append(f"CoronalElevation_humLat_{humeral_lateral_offset}_glenLat_{glenoid_lateral_offset}_glenSup_{glenoid_superior_offset}")
@@ -158,30 +160,3 @@ save_results_to_file(Results_Scapular, SaveSimulationsDirectory, "Results_Scapul
 SaveVariablesDirectory = "Saved VariablesDictionary"
 
 save_results_to_file(VariableDictionary_Flexion, SaveVariablesDirectory, "VariableDictionary_Flexion")
-
-# %% Chargement du fichier excel de littérature
-
-# # Informations about the excel file
-# file_name = "Template_importation_littérature"
-# directory_path = "Anybody_Package/Template"
-
-# # Loads the excel
-# Results_Literature = load_literature_data(file_name, directory_path)
-
-# # Saves it to a .pkl file
-# save_results_to_file(Results_Literature, SaveSimulationsDirectory, "Results_Literature")
-
-# %% Combiner des cas de simulations
-
-# combine_cases = {"cas_13": ["cas_1", "cas_3"],
-#                  "cas_24": ["cas_2", "cas_4"],
-#                  "cas_5": ["cas_5"]
-#                  }
-
-# # moyenne des cas de simulations
-# combined_results = combine_simulation_cases(Results, combine_cases, "mean")
-
-# # Saves it to a .pkl file
-# save_results_to_file(combined_results, SaveSimulationsDirectory, "combined_results")
-
-

@@ -16,6 +16,10 @@ from Anybody_Package.Anybody_Graph import PremadeGraphs
 
 from Anybody_Package.Anybody_Graph.Tools import save_all_active_figures
 
+from Anybody_Package.Anybody_LoadOutput.Tools import result_dictionary_to_excel
+
+from Anybody_Package.Anybody_LoadOutput.Tools import get_case_result_dictionary_variables
+
 import matplotlib
 
 # %% Contrôle de la taille des polices des graphiques
@@ -142,21 +146,28 @@ Muscles_Extra = ["Sternocleidomastoid sternum",
 
 # %% Graphiques
 
-for movement in Results:
-    current_result = Results[movement]
+# for movement in Results:
+#     current_result = Results[movement]
 
-    # Instability ratio
-    graph(current_result, "Angle", "IR", f"{movement} : Instability ratio", cases_on="all", grid_x_step=20)
+#     # Instability ratio
+#     graph(current_result, "Angle", "IR", f"{movement} : Instability ratio", cases_on="all", grid_x_step=20)
 
-    # GH reaction force
-    graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})
-    graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2})
-    graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True)
+#     # GH reaction force
+#     graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})
+#     graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2})
+#     graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True)
 
-    # Fm
-    PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[24, 14])
-    PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Aux, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[24, 14])
-    PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Extra, [2, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[18, 14])
+#     # Fm
+#     PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[24, 14])
+#     PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Aux, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[24, 14])
+#     PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Extra, [2, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[18, 14])
 
-    # Sauvegarde des graphiques
-    save_all_active_figures(save_folder_path="Graphiques", folder_name=f"{movement}", file_name=f"{movement}", save_format="png")
+#     # Sauvegarde des graphiques
+#     save_all_active_figures(save_folder_path="Graphiques", folder_name=f"{movement}", file_name=f"{movement}", save_format="png")
+
+# %% Sauvegarde des résultats dans excel
+
+# Sauvegarde des résultats dans excel
+result_dictionary_to_excel(Results["Coronal Elevation"], "Coronal Elevation")
+# result_dictionary_to_excel(Results["Scapular Elevation"], "Scapular Elevation")
+# result_dictionary_to_excel(Results["Sagital Elevation"], "Sagital Elevation")
