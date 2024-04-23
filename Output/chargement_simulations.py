@@ -141,13 +141,14 @@ Results_Flexion = load_simulation_cases(SaveDataDir, Files_Flexion, CaseNames, V
 Results = {"CoronalElevation": Results_Abduction, "ScapularElevation": Results_Scapular, "SagitalElevation": Results_Flexion}
 
 # %% Ratio d'instabilité
+
 for movement in MovementType_list:
     for case in CaseNames:
         current_result = Results[movement][case]
 
         reactions = current_result["Reaction"]
-        current_result["IR"] = {"SequenceComposantes": ["Total"], "Description": "Instability ratio"}
-        current_result["IR"]["Total"] = reactions["IS"] / reactions["ML"]
+        current_result["Instability Ratio"] = {"SequenceComposantes": ["Total"], "Description": "Instability ratio"}
+        current_result["Instability Ratio"]["Total"] = (abs(reactions["IS"]) + abs(reactions["AP"])) / abs(reactions["ML"])
 
 # Sauvegarde des résultats dans des fichiers .pkl
 save_results_to_file(Results_Flexion, SaveSimulationsDirectory, "Results_Flexion")

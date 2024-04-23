@@ -62,7 +62,7 @@ Main.Seg.Scapula = {
     
     ARel =  .GHReactionCenterNodeRotated.ARel * Transform_ISB;
     AnyDrawRefFrame drw = {
-      Visible = Off;
+      Visible = On;
       RGB = {1,0,0};
     };  
     

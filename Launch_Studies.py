@@ -63,8 +63,8 @@ for MovementType in MovementType_list:
 
 # %% Launch study without timeout
 
-app = AnyPyProcess(timeout=3600 * 100, num_processes=num_processes,
+app = AnyPyProcess(timeout=3600 * 100, num_processes=num_processes, keep_logfiles=True
                    # uncomment if on local pc
                    # anybodycon_path=r"C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\anybodycon.exe"
                    )
-app.start_macro(macrolist)
+app.start_macro(macrolist, logfile="logfile")

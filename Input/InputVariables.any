@@ -11,7 +11,7 @@ AnyFolder InputVariables = {
 
 /*------------------------SAVE OPTION------------------------*/
 #ifndef AutoSaveOption
-#define AutoSaveOption 1
+#define AutoSaveOption 0
 #endif
 
 /*------------------------scapular Glenohumeral center of rotation offset------------------------
@@ -38,7 +38,7 @@ Lateralisation (+)/ medialisation (-) : 0mm, 5mm, 10mm, 15mm
 #endif
 
 #ifndef glenoid_lateralisation
-#define glenoid_lateralisation 0
+#define glenoid_lateralisation -10
 #endif
 
 // Glenoid offset in mm
@@ -59,6 +59,11 @@ AnyVec3 glenoid_offset = DesignVar({glenoid_anteriorisation, glenoid_distalisati
 // Humeral offset in millimeter
 AnyVec3 humeral_offset = DesignVar({-humeral_lateralisation, humeral_distalisation, -humeral_anteriorisation});
 
+
+#define ResultFileName "ScapularElevation_" + "humLat_" + "0" + "_glenLat_" + "0" + "_glenSup_" + "0"
+
+
+
 /*------------------------TYPE OF ABDUCTION------------------------
 CoronalElevation
 ScapularElevation
@@ -67,8 +72,8 @@ SagitalElevation
 */
 #ifndef MovementType
 //#define MovementType CoronalElevation
-//#define MovementType ScapularElevation
-#define MovementType SagitalElevation
+#define MovementType ScapularElevation
+//#define MovementType SagitalElevation
 #endif
 
 /*------------------------START AND END ANGLE OF ABDUCTION------------------------*/
