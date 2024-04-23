@@ -1,22 +1,10 @@
 // Excludes the old glenohumeral joint to redefine it with an offset
 
-// Deactivated the GHReaction forces
-#if GHReactionsOn == 0
+// Deactivated the GHReaction forces to eventually redefine them
 MechObjectExclude = 
 arrcat(ObjSearchRecursive("Main.HumanModel.BodyModel.SelectedOutput.Right.ShoulderArm.JointReactionForce.GlenoHumeral_*","AnyMechObject"),
 ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions","*","AnyMechObject"),
 ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject"));
-#endif
-
-
-// Keep the GHReaction forces activated
-#if GHReactionsOn == 1
-MechObjectExclude = 
-arrcat(
-ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")
-
-);
-#endif
 
 //Excludes the old GHJoint for in the calibration sequence 
 //Comment if not using MusclesHill model 
@@ -60,15 +48,17 @@ Main.Seg.Scapula = {
     // Offset the original position of the gh centernode
     sRel = .GHReactionCenterNodeRotated.sRel + Offset';
     
-    ARel =  .GHReactionCenterNodeRotated.ARel * Transform_ISB;
+ //   Rotates the node so it has the same direction as the ISB coordinate system
+ ARel =  .GHReactionCenterNodeRotated.ARel * Transform_ISB;
     AnyDrawRefFrame drw = {
-      Visible = On;
+      Visible = Off;
       RGB = {1,0,0};
     };  
-    
+
   }; //gh_offseted
-  
+       
 }; //Seg.Scapula
+
 
 Main.Seg.Humerus = {
   
@@ -92,7 +82,7 @@ Main.Seg.Humerus = {
 
     sRel = humerus_cor_pos_reference + Main.InputVariables.humeral_offset/1000; 
     AnyDrawRefFrame drw = {
-      Visible=On;
+      Visible=Off;
       RGB = {0, 1,0};
     };
     
@@ -132,4 +122,25 @@ Main.Jnt = {
 }; //Jnt
 
 
+// hides GHReactions nodes
+#if GHReactionsOn == 1
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions.EdgeLine1.line.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions.EdgeLine2.line.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions.EdgeLine3.line.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions.EdgeLine4.line.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions.EdgeLine5.line.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions.EdgeLine6.line.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions.EdgeLine7.line.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GHReactions.EdgeLine8.line.Visible = Off;
+
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode1.node.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode2.node.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode3.node.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode4.node.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode5.node.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode6.node.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode7.node.Visible = Off;
+Main.HumanModel.BodyModel.Right.ShoulderArm.Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode8.node.Visible = Off;
+
+#endif
 

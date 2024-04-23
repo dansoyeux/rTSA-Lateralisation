@@ -35,6 +35,10 @@ Main =
     };
   }; // Model
   
+  #if GHReactionsOn == 1
+  #include "Model/MyGHReactions.any"
+  #endif
+  
   // Shortcuts
   AnyFolder &Jnt = Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt;
   AnyFolder &Seg = Main.HumanModel.BodyModel.Right.ShoulderArm.Seg;

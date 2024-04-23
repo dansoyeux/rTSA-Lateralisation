@@ -6,8 +6,13 @@ AnyFolder InputVariables = {
 
 //Chose to deactivate the GHReactionForce modeled by muscles
 #ifndef GHReactionsOn
-#define GHReactionsOn 0
+#define GHReactionsOn 1
 #endif
+
+// Lateral offset between the center of the glenoid and the cavity nodes 
+  AnyFloat CavityNodesOffset = {0, 0, -5} / 1000;
+
+
 
 /*------------------------SAVE OPTION------------------------*/
 #ifndef AutoSaveOption
@@ -38,7 +43,7 @@ Lateralisation (+)/ medialisation (-) : 0mm, 5mm, 10mm, 15mm
 #endif
 
 #ifndef glenoid_lateralisation
-#define glenoid_lateralisation -10
+#define glenoid_lateralisation 0
 #endif
 
 // Glenoid offset in mm
@@ -53,7 +58,7 @@ AnyVec3 glenoid_offset = DesignVar({glenoid_anteriorisation, glenoid_distalisati
 #endif
 
 #ifndef humeral_lateralisation
-#define humeral_lateralisation 0
+#define humeral_lateralisation 15
 #endif
 
 // Humeral offset in millimeter

@@ -1,4 +1,4 @@
-/**
+/*
 This file creates realistic reaction between humerus and scapula, 
 the ordinary reactions in the spherical GH joint has been switched off.
 
@@ -22,199 +22,297 @@ This way of calculating the reaction force can be switched off by
 excluding the file "GHReactions.any "from the Arm3D/jnt.any
 and instead using the normal reactions of the GH joint.
 */
-AnyFolder GHReactions={
+
+Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt = {
+
+AnyFolder MyGHReactions={
   
   //Add extra nodes on the gh cavitas edge 
   AnySeg &Scapula=..Seg.Scapula;
   
   Scapula={
     
-    AnyRefNode    GHReactionCenterNode = {
-      sRel=.Scale({  -0.001,-0.048,-0.030}*.Mirror);
-      //AnyDrawRefFrame drw={ScaleXYZ={0.05,0.05,0.05};};
-    };
+//    AnyRefNode    GHReactionCenterNode = {
+//      sRel=.Scale({  -0.001,-0.048,-0.030}*.Mirror);
+//      //AnyDrawRefFrame drw={ScaleXYZ={0.05,0.05,0.05};};
+//    };
     
-    AnyRefNode    EdgeNode1 = {
-      sRel=.Scale({  0.001,-0.050863,-0.013}*.Mirror);
-      //AnyDrawRefFrame drw={ScaleXYZ={0.05,0.05,0.05};};
-    };
-    
-    AnyRefNode    EdgeNode2 = {
-      sRel=.Scale({  0.001,-0.035,-0.03}*.Mirror);
-      //AnyDrawRefFrame drw={ScaleXYZ={0.05,0.05,0.05};};
-    };
-    
-    // this node is located at the center of glenohumeral cavitas and orientated in accrodance to the 
-    //overall cavitas plane using the three points defined abover
-    AnyRefNode    GHReactionCenterNodeRotated = {
-      sRel=.GHReactionCenterNode.sRel;
+//    AnyRefNode    MyEdgeNode1 = {
+//      sRel=.Scale({  0.001,-0.050863,-0.013}*.Mirror);
+//      //AnyDrawRefFrame drw={ScaleXYZ={0.05,0.05,0.05};};
+//    };
+//    
+//    AnyRefNode    MyEdgeNode2 = {
+//      sRel=.Scale({  0.001,-0.035,-0.03}*.Mirror);
+//      //AnyDrawRefFrame drw={ScaleXYZ={0.05,0.05,0.05};};
+//    };
+//    
+//    // this node is located at the center of glenohumeral cavitas and orientated in accrodance to the 
+//    //overall cavitas plane using the three points defined abover
+//    AnyRefNode    GHReactionCenterNodeRotated = {
+//      sRel=.GHReactionCenterNode.sRel;
+//      
+//      //Calculate rot matrix for cylinder using three points
+//      AnyMat33  Mat = RotMat(sRel,.EdgeNode1.sRel,.EdgeNode2.sRel);
+//      
+//      ARel=Mat;
+//      
+//      //create some nodes around the edge of the cavitas
+//      AnyVar no=8;
+//      AnyVar angspace=....Sign*(360/no)*pi/180;
+//      AnyVar startangle =0; 
+//      
+//      //radius found as distance between center node and EdgeNode1 
+//      AnyVar radius=sqrt(
+//      (.EdgeNode1.sRel[0]-.GHReactionCenterNode.sRel[0])^2+
+//      (.EdgeNode1.sRel[1]-.GHReactionCenterNode.sRel[1])^2+
+//      (.EdgeNode1.sRel[2]-.GHReactionCenterNode.sRel[2])^2 );
+//      
       
-      //Calculate rot matrix for cylinder using three points
-      AnyMat33  Mat = RotMat(sRel,.EdgeNode1.sRel,.EdgeNode2.sRel);
-      
-      ARel=Mat;
-      
-      //create some nodes around the edge of the cavitas
-      AnyVar no=8;
-      AnyVar angspace=....Sign*(360/no)*pi/180;
-      AnyVar startangle =0; 
-      AnyVec3 DrwRGB={0,0,1};
-      AnyVec3 DrwRadius={0.0015,0.0015,0.0015};
-      
-      //radius found as distance between center node and EdgeNode1 
-      AnyVar radius=sqrt(
-      (.EdgeNode1.sRel[0]-.GHReactionCenterNode.sRel[0])^2+
-      (.EdgeNode1.sRel[1]-.GHReactionCenterNode.sRel[1])^2+
-      (.EdgeNode1.sRel[2]-.GHReactionCenterNode.sRel[2])^2 );
-      
-      
-      AnyRefNode CavityEdgeNode1={
-        sRel=({-.radius*cos(.startangle+.angspace*1),.radius*sin(.startangle+.angspace*1),0}*..Mirror);
-        AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
-      };
-      AnyRefNode CavityEdgeNode2={
-        sRel=({-.radius*cos(.startangle+.angspace*2),.radius*sin(.startangle+.angspace*2),0}*..Mirror);
-        AnyDrawNode node  ={RGB=..DrwRGB;  ScaleXYZ=..DrwRadius;};
-      };     
-      AnyRefNode CavityEdgeNode3={
-        sRel=({-.radius*cos(.startangle+.angspace*3),.radius*sin(.startangle+.angspace*3),0}*..Mirror);
-        AnyDrawNode node  ={RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
-      };
-      AnyRefNode CavityEdgeNode4={
-        sRel=({-.radius*cos(.startangle+.angspace*4),.radius*sin(.startangle+.angspace*4),0}*..Mirror);
-        AnyDrawNode node  ={RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
-      };
-      AnyRefNode CavityEdgeNode5={
-        sRel=({-.radius*cos(.startangle+.angspace*5),.radius*sin(.startangle+.angspace*5),0}*..Mirror);
-        AnyDrawNode node  ={RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
-      };
-      AnyRefNode CavityEdgeNode6={
-        sRel=({-.radius*cos(.startangle+.angspace*6),.radius*sin(.startangle+.angspace*6),0}*..Mirror);
-        AnyDrawNode node  ={RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
-      };
-      AnyRefNode CavityEdgeNode7={
-        sRel=({-.radius*cos(.startangle+.angspace*7),.radius*sin(.startangle+.angspace*7),0}*..Mirror);
-        AnyDrawNode node  ={RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
-      };
-      AnyRefNode CavityEdgeNode8={
-        sRel=({-.radius*cos(.startangle+.angspace*8),.radius*sin(.startangle+.angspace*8),0}*..Mirror);
-        AnyDrawNode node  ={RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
-      };
-    };
-  };
+
+gh_offset = {
+ 
+  AnyVec3 DrwRGB={0,1,1};
+  AnyVec3 DrwRadius={0.0015,0.0015,0.0015};
+     
+  // cavity node for MyGHReaction that will be offseted  
+  AnyRefNode CavityEdgeNode1={
+  AnyMat33 Transform_ISB = {{-1,0,0},{0,1,0},{0,0,-1}};
   
-  AnyVec3 LineRGB={0,1,0}; 
-  AnyVar LineThickness=0.0005;
+  // Original sRel of the cavity node
+  AnyFloat Cavity_sRel = {..GHReactionCenterNodeRotated.CavityEdgeNode1.sRel};
+  
+  // Rotation to correspond to the ISB refFrame
+  AnyFloat Cavity_sRel_rotated = .Transform_ISB' * Cavity_sRel';
+  
+  sRel = Cavity_sRel_rotated' + Main.InputVariables.CavityNodesOffset;
+  AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
+  };  // CavityEdgeNode1
+  
+  
+  // cavity node for MyGHReaction that will be offseted  
+  AnyRefNode CavityEdgeNode2={
+  AnyMat33 Transform_ISB = {{-1,0,0},{0,1,0},{0,0,-1}};
+  
+  // Original sRel of the cavity node
+  AnyFloat Cavity_sRel = {..GHReactionCenterNodeRotated.CavityEdgeNode2.sRel};
+  
+  // Rotation to correspond to the ISB refFrame
+  AnyFloat Cavity_sRel_rotated = .Transform_ISB' * Cavity_sRel';
+  
+  sRel = Cavity_sRel_rotated' + Main.InputVariables.CavityNodesOffset;
+  AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
+  };  // CavityEdgeNode2
+
+
+// cavity node for MyGHReaction that will be offseted  
+  AnyRefNode CavityEdgeNode3={
+  
+  
+  // Original sRel of the cavity node
+  AnyFloat Cavity_sRel = {..GHReactionCenterNodeRotated.CavityEdgeNode3.sRel};
+  
+  // Rotation to correspond to the ISB refFrame
+  AnyFloat Cavity_sRel_rotated = .Transform_ISB' * Cavity_sRel';
+  
+  sRel = Cavity_sRel_rotated' + Main.InputVariables.CavityNodesOffset;
+  AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
+  };  // CavityEdgeNode3
+
+
+// cavity node for MyGHReaction that will be offseted  
+  AnyRefNode CavityEdgeNode4={
+  
+  
+  // Original sRel of the cavity node
+  AnyFloat Cavity_sRel = {..GHReactionCenterNodeRotated.CavityEdgeNode4.sRel};
+  
+  // Rotation to correspond to the ISB refFrame
+  AnyFloat Cavity_sRel_rotated = .Transform_ISB' * Cavity_sRel';
+  
+  sRel = Cavity_sRel_rotated' + Main.InputVariables.CavityNodesOffset;
+  AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
+  };  // CavityEdgeNode4
+
+
+// cavity node for MyGHReaction that will be offseted  
+  AnyRefNode CavityEdgeNode5={
+  
+  
+  // Original sRel of the cavity node
+  AnyFloat Cavity_sRel = {..GHReactionCenterNodeRotated.CavityEdgeNode5.sRel};
+  
+  // Rotation to correspond to the ISB refFrame
+  AnyFloat Cavity_sRel_rotated = .Transform_ISB' * Cavity_sRel';
+  
+  sRel = Cavity_sRel_rotated' + Main.InputVariables.CavityNodesOffset;
+  AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
+  };  // CavityEdgeNode5
+
+
+// cavity node for MyGHReaction that will be offseted  
+  AnyRefNode CavityEdgeNode6={
+  
+  
+  // Original sRel of the cavity node
+  AnyFloat Cavity_sRel = {..GHReactionCenterNodeRotated.CavityEdgeNode6.sRel};
+  
+  // Rotation to correspond to the ISB refFrame
+  AnyFloat Cavity_sRel_rotated = .Transform_ISB' * Cavity_sRel';
+  
+  sRel = Cavity_sRel_rotated' + Main.InputVariables.CavityNodesOffset;
+  AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
+  };  // CavityEdgeNode6
+
+
+// cavity node for MyGHReaction that will be offseted  
+  AnyRefNode CavityEdgeNode7={
+  
+  
+  // Original sRel of the cavity node
+  AnyFloat Cavity_sRel = {..GHReactionCenterNodeRotated.CavityEdgeNode7.sRel};
+  
+  // Rotation to correspond to the ISB refFrame
+  AnyFloat Cavity_sRel_rotated = .Transform_ISB' * Cavity_sRel';
+  
+  sRel = Cavity_sRel_rotated' + Main.InputVariables.CavityNodesOffset;
+  AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
+  };  // CavityEdgeNode7
+
+
+// cavity node for MyGHReaction that will be offseted  
+  AnyRefNode CavityEdgeNode8={
+  
+  
+  // Original sRel of the cavity node
+  AnyFloat Cavity_sRel = {..GHReactionCenterNodeRotated.CavityEdgeNode8.sRel};
+  
+  // Rotation to correspond to the ISB refFrame
+  AnyFloat Cavity_sRel_rotated = .Transform_ISB' * Cavity_sRel';
+  
+  sRel = Cavity_sRel_rotated' + Main.InputVariables.CavityNodesOffset;
+  AnyDrawNode node  = {RGB=..DrwRGB; ScaleXYZ=..DrwRadius;};
+  };  // CavityEdgeNode8
+
+
+}; //gh_offset
+
+      
+    };//Scapula
+
+  
+  AnyVec3 LineRGB={0,1,1}; 
+  AnyVar LineThickness=0.0015;
   
   //create plines from cavitas egde to humerus gh node
   AnyKinPLine EdgeLine1 ={
-    AnyRefNode &ref1=...Seg.Humerus.gh;
-    AnyRefNode &ref2=...Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode1;
+    AnyRefNode &ref1=...Seg.Humerus.gh_offset;
+    AnyRefNode &ref2=...Seg.Scapula.gh_offset.CavityEdgeNode1;
     AnyDrawPLine line ={RGB=..LineRGB; Thickness=..LineThickness;};
   };
   
   //create plines from cavitas egde to humerus gh node
   AnyKinPLine EdgeLine2 ={
-    AnyRefNode &ref1=...Seg.Humerus.gh;
-    AnyRefNode &ref2=...Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode2;
+    AnyRefNode &ref1=...Seg.Humerus.gh_offset;
+    AnyRefNode &ref2=...Seg.Scapula.gh_offset.CavityEdgeNode2;
     AnyDrawPLine line ={RGB=..LineRGB; Thickness=..LineThickness;};
   };
   
   //create plines from cavitas egde to humerus gh node
   AnyKinPLine EdgeLine3 ={
-    AnyRefNode &ref1=...Seg.Humerus.gh;
-    AnyRefNode &ref2=...Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode3;
+    AnyRefNode &ref1=...Seg.Humerus.gh_offset;
+    AnyRefNode &ref2=...Seg.Scapula.gh_offset.CavityEdgeNode3;
     AnyDrawPLine line ={RGB=..LineRGB; Thickness=..LineThickness;};
   };
   
   //create plines from cavitas egde to humerus gh node
   AnyKinPLine EdgeLine4 ={
-    AnyRefNode &ref1=...Seg.Humerus.gh;
-    AnyRefNode &ref2=...Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode4;
+    AnyRefNode &ref1=...Seg.Humerus.gh_offset;
+    AnyRefNode &ref2=...Seg.Scapula.gh_offset.CavityEdgeNode4;
     AnyDrawPLine line ={RGB=..LineRGB; Thickness=..LineThickness;};
   };
   
   //create plines from cavitas egde to humerus gh node
   AnyKinPLine EdgeLine5 ={
-    AnyRefNode &ref1=...Seg.Humerus.gh;
-    AnyRefNode &ref2=...Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode5;
+    AnyRefNode &ref1=...Seg.Humerus.gh_offset;
+    AnyRefNode &ref2=...Seg.Scapula.gh_offset.CavityEdgeNode5;
     AnyDrawPLine line ={RGB=..LineRGB; Thickness=..LineThickness;};
   };
   
   //create plines from cavitas egde to humerus gh node
   AnyKinPLine EdgeLine6 ={
-    AnyRefNode &ref1=...Seg.Humerus.gh;
-    AnyRefNode &ref2=...Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode6;
+    AnyRefNode &ref1=...Seg.Humerus.gh_offset;
+    AnyRefNode &ref2=...Seg.Scapula.gh_offset.CavityEdgeNode6;
     AnyDrawPLine line ={RGB=..LineRGB; Thickness=..LineThickness;};
   };
   
   //create plines from cavitas egde to humerus gh node
   AnyKinPLine EdgeLine7={
-    AnyRefNode &ref1=...Seg.Humerus.gh;
-    AnyRefNode &ref2=...Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode7;
+    AnyRefNode &ref1=...Seg.Humerus.gh_offset;
+    AnyRefNode &ref2=...Seg.Scapula.gh_offset.CavityEdgeNode7;
     AnyDrawPLine line ={RGB=..LineRGB; Thickness=..LineThickness;};
   };
   
   //create plines from cavitas egde to humerus gh node
   AnyKinPLine EdgeLine8 ={
-    AnyRefNode &ref1=...Seg.Humerus.gh;
-    AnyRefNode &ref2=...Seg.Scapula.GHReactionCenterNodeRotated.CavityEdgeNode8;
+    AnyRefNode &ref1=...Seg.Humerus.gh_offset;
+    AnyRefNode &ref2=...Seg.Scapula.gh_offset.CavityEdgeNode8;
     AnyDrawPLine line ={RGB=..LineRGB; Thickness=..LineThickness;};
   };
   
   AnyVar Strength =5000;
   
   
-  AnyRecruitedActuator EdgeMuscle1 ={
+  AnyRecruitedActuator MyEdgeMuscle1 ={
     Strength = .Strength;
     AnyKinPLine &ref2=.EdgeLine1;
     Type = NonNegative; //push
     SET_DEFAULT_ACTUATOR_VOLUME;
 
   };
-  AnyRecruitedActuator EdgeMuscle2 ={
+  AnyRecruitedActuator MyEdgeMuscle2 ={
     Strength = .Strength;
     AnyKinPLine &ref2=.EdgeLine2;
     Type = NonNegative; //push
     SET_DEFAULT_ACTUATOR_VOLUME;
      
   };
-  AnyRecruitedActuator EdgeMuscle3 ={
+  AnyRecruitedActuator MyEdgeMuscle3 ={
     Strength = .Strength;
     AnyKinPLine &ref2=.EdgeLine3;
     Type = NonNegative; //push
     SET_DEFAULT_ACTUATOR_VOLUME;
      
   };
-  AnyRecruitedActuator EdgeMuscle4 ={
+  AnyRecruitedActuator MyEdgeMuscle4 ={
     Strength = .Strength;
     AnyKinPLine &ref2=.EdgeLine4;
     Type = NonNegative; //push
     SET_DEFAULT_ACTUATOR_VOLUME;
      
   };
-  AnyRecruitedActuator EdgeMuscle5 ={
+  AnyRecruitedActuator MyEdgeMuscle5 ={
     Strength = .Strength;
     AnyKinPLine &ref2=.EdgeLine5;
     Type = NonNegative; //push
     SET_DEFAULT_ACTUATOR_VOLUME;
      
   };
-  AnyRecruitedActuator EdgeMuscle6 ={
+  AnyRecruitedActuator MyEdgeMuscle6 ={
     Strength = .Strength;
     AnyKinPLine &ref2=.EdgeLine6;
     Type = NonNegative; //push
     SET_DEFAULT_ACTUATOR_VOLUME;
      
   };
-  AnyRecruitedActuator EdgeMuscle7 ={
+  AnyRecruitedActuator MyEdgeMuscle7 ={
     Strength = .Strength;
     AnyKinPLine &ref2=.EdgeLine7;
     Type = NonNegative; //push
     SET_DEFAULT_ACTUATOR_VOLUME;
      
   };
-  AnyRecruitedActuator EdgeMuscle8 ={
+  AnyRecruitedActuator MyEdgeMuscle8 ={
     Strength = .Strength;
     AnyKinPLine &ref2=.EdgeLine8;
     Type = NonNegative; //push
@@ -223,69 +321,69 @@ AnyFolder GHReactions={
   };
   
   //make a force summation
-  AnyFolder ResultantForce ={
+  AnyFolder My_ResultantForce ={
     
-    AnyRefNode &CenterNode=...Seg.Scapula.GHReactionCenterNodeRotated;
+    AnyRefNode &CenterNode=...Seg.Scapula.gh_offset;
     
     AnyVar L1=((CenterNode.CavityEdgeNode1.r[0]-...Seg.Humerus.gh.r[0])^2+(CenterNode.CavityEdgeNode1.r[1]-...Seg.Humerus.gh.r[1])^2+(CenterNode.CavityEdgeNode1.r[2]-...Seg.Humerus.gh.r[2])^2)^0.5;
     AnyVec3  F1={
       CenterNode.CavityEdgeNode1.r[0]-...Seg.Humerus.gh.r[0],
       CenterNode.CavityEdgeNode1.r[1]-...Seg.Humerus.gh.r[1],
       CenterNode.CavityEdgeNode1.r[2]-...Seg.Humerus.gh.r[2]
-    }*.EdgeMuscle1.Fout[0]/L1;
+    }*.MyEdgeMuscle1.Fout[0]/L1;
     
     AnyVar L2=((CenterNode.CavityEdgeNode2.r[0]-...Seg.Humerus.gh.r[0])^2+(CenterNode.CavityEdgeNode2.r[1]-...Seg.Humerus.gh.r[1])^2+(CenterNode.CavityEdgeNode2.r[2]-...Seg.Humerus.gh.r[2])^2)^0.5;
     AnyVec3  F2={
       CenterNode.CavityEdgeNode2.r[0]-...Seg.Humerus.gh.r[0],
       CenterNode.CavityEdgeNode2.r[1]-...Seg.Humerus.gh.r[1],
       CenterNode.CavityEdgeNode2.r[2]-...Seg.Humerus.gh.r[2]
-    }*.EdgeMuscle2.Fout[0]/L2;
+    }*.MyEdgeMuscle2.Fout[0]/L2;
     
     AnyVar L3=((CenterNode.CavityEdgeNode3.r[0]-...Seg.Humerus.gh.r[0])^2+(CenterNode.CavityEdgeNode3.r[1]-...Seg.Humerus.gh.r[1])^2+(CenterNode.CavityEdgeNode3.r[2]-...Seg.Humerus.gh.r[2])^2)^0.5;
     AnyVec3  F3={
       CenterNode.CavityEdgeNode3.r[0]-...Seg.Humerus.gh.r[0],
       CenterNode.CavityEdgeNode3.r[1]-...Seg.Humerus.gh.r[1],
       CenterNode.CavityEdgeNode3.r[2]-...Seg.Humerus.gh.r[2]
-    }*.EdgeMuscle3.Fout[0]/L3;
+    }*.MyEdgeMuscle3.Fout[0]/L3;
     
     AnyVar L4=((CenterNode.CavityEdgeNode4.r[0]-...Seg.Humerus.gh.r[0])^2+(CenterNode.CavityEdgeNode4.r[1]-...Seg.Humerus.gh.r[1])^2+(CenterNode.CavityEdgeNode4.r[2]-...Seg.Humerus.gh.r[2])^2)^0.5;
     AnyVec3  F4={
       CenterNode.CavityEdgeNode4.r[0]-...Seg.Humerus.gh.r[0],
       CenterNode.CavityEdgeNode4.r[1]-...Seg.Humerus.gh.r[1],
       CenterNode.CavityEdgeNode4.r[2]-...Seg.Humerus.gh.r[2]
-    }*.EdgeMuscle4.Fout[0]/L4;
+    }*.MyEdgeMuscle4.Fout[0]/L4;
     
     AnyVar L5=((CenterNode.CavityEdgeNode5.r[0]-...Seg.Humerus.gh.r[0])^2+(CenterNode.CavityEdgeNode5.r[1]-...Seg.Humerus.gh.r[1])^2+(CenterNode.CavityEdgeNode5.r[2]-...Seg.Humerus.gh.r[2])^2)^0.5;
     AnyVec3  F5={
       CenterNode.CavityEdgeNode5.r[0]-...Seg.Humerus.gh.r[0],
       CenterNode.CavityEdgeNode5.r[1]-...Seg.Humerus.gh.r[1],
       CenterNode.CavityEdgeNode5.r[2]-...Seg.Humerus.gh.r[2]
-    }*.EdgeMuscle5.Fout[0]/L5;
+    }*.MyEdgeMuscle5.Fout[0]/L5;
     
     AnyVar L6=((CenterNode.CavityEdgeNode6.r[0]-...Seg.Humerus.gh.r[0])^2+(CenterNode.CavityEdgeNode6.r[1]-...Seg.Humerus.gh.r[1])^2+(CenterNode.CavityEdgeNode6.r[2]-...Seg.Humerus.gh.r[2])^2)^0.5;
     AnyVec3  F6={
       CenterNode.CavityEdgeNode6.r[0]-...Seg.Humerus.gh.r[0],
       CenterNode.CavityEdgeNode6.r[1]-...Seg.Humerus.gh.r[1],
       CenterNode.CavityEdgeNode6.r[2]-...Seg.Humerus.gh.r[2]
-    }*.EdgeMuscle6.Fout[0]/L6;
+    }*.MyEdgeMuscle6.Fout[0]/L6;
     
     AnyVar L7=((CenterNode.CavityEdgeNode7.r[0]-...Seg.Humerus.gh.r[0])^2+(CenterNode.CavityEdgeNode7.r[1]-...Seg.Humerus.gh.r[1])^2+(CenterNode.CavityEdgeNode7.r[2]-...Seg.Humerus.gh.r[2])^2)^0.5;
     AnyVec3  F7={
       CenterNode.CavityEdgeNode7.r[0]-...Seg.Humerus.gh.r[0],
       CenterNode.CavityEdgeNode7.r[1]-...Seg.Humerus.gh.r[1],
       CenterNode.CavityEdgeNode7.r[2]-...Seg.Humerus.gh.r[2]
-    }*.EdgeMuscle7.Fout[0]/L7;
+    }*.MyEdgeMuscle7.Fout[0]/L7;
     
     AnyVar L8=((CenterNode.CavityEdgeNode8.r[0]-...Seg.Humerus.gh.r[0])^2+(CenterNode.CavityEdgeNode8.r[1]-...Seg.Humerus.gh.r[1])^2+(CenterNode.CavityEdgeNode8.r[2]-...Seg.Humerus.gh.r[2])^2)^0.5;
     AnyVec3  F8={
       CenterNode.CavityEdgeNode8.r[0]-...Seg.Humerus.gh.r[0],
       CenterNode.CavityEdgeNode8.r[1]-...Seg.Humerus.gh.r[1],
       CenterNode.CavityEdgeNode8.r[2]-...Seg.Humerus.gh.r[2]
-    }*.EdgeMuscle8.Fout[0]/L8;
+    }*.MyEdgeMuscle8.Fout[0]/L8;
     
     AnyVec3 FTotalGlobal=F1+F2+F3+F4+F5+F6+F7+F8;
     
-    AnyVec3 FTotalLocal = FTotalGlobal*...Seg.Scapula.GHReactionCenterNodeRotated.Axes;
+    AnyVec3 FTotalLocal = FTotalGlobal*...Seg.Scapula.gh_offset.Axes;
 
     
     
@@ -404,8 +502,10 @@ AnyFolder GHReactions={
     //      Line.End.Length = 0.5*4*Main.DrawSettings.DrawSettingsSupport.Lin.Thickness;
     //    };
     //
-      };
+      }; // MyResultantForce
     
-  };
+        }; // MyGHReaction
+      
+  }; // Jnt
   
   
