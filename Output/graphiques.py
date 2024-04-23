@@ -174,8 +174,6 @@ Muscles_Extra = ["Sternocleidomastoid sternum",
 # %% Sauvegarde des résultats dans excel
 
 # Sauvegarde des résultats dans excel
-# result_dictionary_to_excel(Results["Coronal Elevation"], "Coronal Elevation")
-# result_dictionary_to_excel(Results["Scapular Elevation"], "Scapular Elevation")
-# result_dictionary_to_excel(Results["Sagital Elevation"], "Sagital Elevation")
-
-variables_informations, muscle_variables_informations = get_result_dictionary_variables_informations(Results["Sagital Elevation"])
+result_dictionary_to_excel(Results["Coronal Elevation"], "Coronal Elevation")
+result_dictionary_to_excel(Results["Scapular Elevation"], "Scapular Elevation")
+result_dictionary_to_excel(Results["Sagital Elevation"], "Sagital Elevation")
