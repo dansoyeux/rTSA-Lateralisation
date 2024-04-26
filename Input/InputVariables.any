@@ -6,13 +6,25 @@ AnyFolder InputVariables = {
 
 //Chose to deactivate the GHReactionForce modeled by muscles
 #ifndef GHReactionsOn
-#define GHReactionsOn 1
+#define GHReactionsOn 0
 #endif
 
 // Lateral offset between the center of the glenoid and the cavity nodes 
   AnyFloat CavityNodesOffset = {0, 0, -5} / 1000;
 
-
+  
+/* -------------------------------- MUSCLE RECRUITMENT TYPE -----------------------------------*/
+/*
+MR_MinMaxStrict
+MR_MinMaxAux
+MR_Linear
+MR_Quadratic
+MR_QuadraticAux (simulation faites avec ce critere)
+MR_Polynomial (Default, power = 3)
+*/
+#ifndef MuscleRecruitmentType
+#define MuscleRecruitmentType MR_Polynomial
+#endif
 
 /*------------------------SAVE OPTION------------------------*/
 #ifndef AutoSaveOption
@@ -43,7 +55,7 @@ Lateralisation (+)/ medialisation (-) : 0mm, 5mm, 10mm, 15mm
 #endif
 
 #ifndef glenoid_lateralisation
-#define glenoid_lateralisation 0
+#define glenoid_lateralisation 5
 #endif
 
 // Glenoid offset in mm
@@ -58,16 +70,15 @@ AnyVec3 glenoid_offset = DesignVar({glenoid_anteriorisation, glenoid_distalisati
 #endif
 
 #ifndef humeral_lateralisation
-#define humeral_lateralisation 15
+#define humeral_lateralisation 0
 #endif
 
 // Humeral offset in millimeter
 AnyVec3 humeral_offset = DesignVar({-humeral_lateralisation, humeral_distalisation, -humeral_anteriorisation});
 
-
-#define ResultFileName "ScapularElevation_" + "humLat_" + "0" + "_glenLat_" + "0" + "_glenSup_" + "0"
-
-
+#ifndef ResultFileName
+#define ResultFileName "" + "ScapularElevation_" + "humLat_" + "0" + "_glenLat_" + "5" + "_glenSup_" + "0"
+#endif
 
 /*------------------------TYPE OF ABDUCTION------------------------
 CoronalElevation

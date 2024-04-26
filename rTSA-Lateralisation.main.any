@@ -60,12 +60,12 @@ Main =
     
     nStep = 60;
     
+    InverseDynamics.Criterion.Type = MuscleRecruitmentType;
+    
     #if rTSA == 1
     // Deactivates the old glenohumeral joint to redefine it with an offset
     #include "Model\GHCoROffset.any"
     #endif
-
-//    InverseDynamics.Criterion.Type = MR_MinMaxStrict;
     
     #if AutoSaveOption == 1
     #include "Model\AnyFileOut.any"

@@ -19,6 +19,10 @@ import os
 
 num_processes = 5
 
+# MuscleRecruitmentType = "MR_Polynomial"
+
+MuscleRecruitmentType = "MR_MinMaxStrict"
+
 # %% Paramètres mouvement et modèle
 
 MovementType_list = ["CoronalElevation", "ScapularElevation", "SagitalElevation"]
@@ -33,6 +37,10 @@ glenoid_lateralisation_offset_list = [-10, 5]
 glenoid_superior_offset_list = [-6, 0]
 glenoid_lateral_offset_list = [0, 15]
 
+
+GHReactionsOn = 0
+
+
 # %% Script lancement simulation
 
 macrolist = []
@@ -45,16 +53,23 @@ for MovementType in MovementType_list:
 
                 ResultFileName = f"{MovementType}_humLat_{humeral_lateral_offset}_glenLat_{glenoid_lateral_offset}_glenSup_{glenoid_superior_offset}"
 
+                if MuscleRecruitmentType == "MR_MinMaxStrict":
+                    ResultFileName = "MR_MinMax_Strict_" + ResultFileName
+
+                if GHReactionsOn == 1:
+                    ResultFileName = "GHReactions_" + ResultFileName
+
                 macrolist.append([
                     Load('rTSA-Lateralisation.main.any',
                          defs={'MovementType': f"{MovementType}",
                                'ResultFileName': f'"{ResultFileName}"',
+                               'MuscleRecruitmentType': MuscleRecruitmentType,
                                'glenoid_anteriorisation': 0,
                                'glenoid_distalisation': glenoid_superior_offset,
                                'glenoid_lateralisation': glenoid_lateral_offset,
                                'humeral_lateralisation': humeral_lateral_offset,
                                'rTSA': 1,
-                               'GHReactionsOn': 0,
+                               'GHReactionsOn': GHReactionsOn,
                                'AutoSaveOption': 1,
                                },  # fin defs
                          ),  # fin Load
@@ -67,4 +82,6 @@ app = AnyPyProcess(timeout=3600 * 100, num_processes=num_processes, keep_logfile
                    # uncomment if on local pc
                    # anybodycon_path=r"C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\anybodycon.exe"
                    )
-app.start_macro(macrolist, logfile="logfile")
+app.start_macro(macrolist
+                # , logfile="logfile"
+                )
