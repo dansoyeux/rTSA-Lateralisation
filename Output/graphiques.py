@@ -18,7 +18,6 @@ from Anybody_Package.Anybody_Graph.Tools import save_all_active_figures
 
 from Anybody_Package.Anybody_LoadOutput.Tools import result_dictionary_to_excel
 
-from Anybody_Package.Anybody_LoadOutput.Tools import get_result_dictionary_variables_informations
 
 import matplotlib
 
@@ -102,6 +101,16 @@ Results_Scapular = load_results_from_file(SaveSimulationsDirectory, "Results_Sca
 
 Results = {"Coronal Elevation": Results_Abduction, "Scapular Elevation": Results_Scapular, "Sagital Elevation": Results_Flexion}
 
+"""
+GHReactions
+"""
+# Chargement des simulations
+Results_Flexion_GHReactions = load_results_from_file(SaveSimulationsDirectory, "Results_Flexion_GHReactions")
+Results_Abduction_GHReactions = load_results_from_file(SaveSimulationsDirectory, "Results_Abduction_GHReactions")
+Results_Scapular_GHReactions = load_results_from_file(SaveSimulationsDirectory, "Results_Scapular_GHReactions")
+
+Results_GHReactions = {"Coronal Elevation": Results_Abduction_GHReactions, "Scapular Elevation": Results_Scapular_GHReactions, "Sagital Elevation": Results_Flexion_GHReactions}
+
 # %%                                                Chargement autres résultats et variables
 
 # # Chargement des dictionnaires de variable
@@ -148,56 +157,76 @@ Muscles_Extra = ["Sternocleidomastoid sternum",
 
 # %% Graphiques
 
-cases_hum_0Lat = ["H0Lat G-10Lat G-6Sup", "H0Lat G-10Lat G0Sup", "H0Lat G5Lat G-6Sup", "H0Lat G5Lat G0Sup"]
-cases_hum_15Lat = ["H15Lat G-10Lat G-6Sup", "H15Lat G-10Lat G0Sup", "H15Lat G5Lat G-6Sup", "H15Lat G5Lat G0Sup"]
+def rTSA_graphs(Results: dict, save_figures: bool = False):
+
+    cases_hum_0Lat = ["H0Lat G-10Lat G-6Sup", "H0Lat G-10Lat G0Sup", "H0Lat G5Lat G-6Sup", "H0Lat G5Lat G0Sup"]
+    cases_hum_15Lat = ["H15Lat G-10Lat G-6Sup", "H15Lat G-10Lat G0Sup", "H15Lat G5Lat G-6Sup", "H15Lat G5Lat G0Sup"]
+
+    for movement in Results:
+        current_result = Results[movement]
+
+        # GH reaction force
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2})
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True, xlim=[0, 160])
+
+        # GH reaction force
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2})
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True, xlim=[0, 160])
+
+        # GH reaction force
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2})
+        graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True, xlim=[0, 160])
+
+        # Instability ratio
+        graph(current_result, "Angle", "Instability Ratio", f"{movement} : Instability ratio ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, grid_x_step=20, xlim=[0, 160], ylim=[0, 3])
+        graph(current_result, "Angle", "Instability Ratio", f"{movement} : Instability ratio ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, grid_x_step=20, xlim=[0, 160], ylim=[0, 3])
+        graph(current_result, "Angle", "Instability Ratio", f"{movement} : Instability ratio", cases_on="all", grid_x_step=20, xlim=[0, 160], ylim=[0, 3])
+
+        # Fm Main
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
+
+        # Fm aux
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Aux, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Aux, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Aux, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
+
+        # Fm extra
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Extra, [2, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, hide_center_axis_labels=True, same_lim=True, figsize=[18, 14], xlim=[0, 160])
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Extra, [2, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, hide_center_axis_labels=True, same_lim=True, figsize=[18, 14], xlim=[0, 160])
+        PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Extra, [2, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[18, 14], xlim=[0, 160])
+
+        # Sauvegarde des graphiques
+        if save_figures:
+            save_all_active_figures(save_folder_path="Graphiques", folder_name=f"{movement}", file_name=f"{movement}", save_format="png")
+
+
+# Normal results
+rTSA_graphs(Results, save_figures=True)
+
+# %% Comparaison GHReactions
+
 
 # for movement in Results:
-for movement in Results:
-    current_result = Results[movement]
+#     Results_compare_GHReactions = {"GHReactions": Results_GHReactions[movement], "Joint Reaction": Results[movement]}
+#     current_result = Results_compare_GHReactions
 
-    # # Instability ratio
-    # graph(current_result, "Angle", "Instability Ratio", f"{movement} : Instability ratio ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, grid_x_step=20, xlim=[0, 160], ylim=[0, 3])
-    # graph(current_result, "Angle", "Instability Ratio", f"{movement} : Instability ratio ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, grid_x_step=20, xlim=[0, 160], ylim=[0, 3])
-    # graph(current_result, "Angle", "Instability Ratio", f"{movement} : Instability ratio", cases_on="all", grid_x_step=20, xlim=[0, 160], ylim=[0, 3])
+#     for case in Results_GHReactions[movement]:
+#         PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{case} {movement} : Force musculaire", cases_on=[case], hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160], compare=True)
 
-    # # GH reaction force
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2})
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True, xlim=[0, 160])
+#         # Reaction force
+#         graph(current_result, "Angle", "Reaction", f"{case} {movement} : Force de contact", cases_on=[case], composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1}, compare=True)
+#         graph(current_result, "Angle", "Reaction", f"{case} {movement} : Force de contact", cases_on=[case], composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2}, compare=True)
+#         graph(current_result, "Angle", "Reaction", f"{case} {movement} : Force de contact", cases_on=[case], grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True, xlim=[0, 160], compare=True)
 
-    # # GH reaction force
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2})
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True, xlim=[0, 160])
-
-    # # GH reaction force
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", composante_y=["AP"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", composante_y=["IS"], subplot_title="inferior-superior", subplot={"dimension": [1, 3], "number": 2})
-    # graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact", cases_on="all", grid_x_step=20, composante_y=["ML"], subplot_title="medial-lateral", subplot={"dimension": [1, 3], "number": 3}, same_lim=True, hide_center_axis_labels=True, xlim=[0, 160])
-
-    # # Fm Main
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Main, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
-
-    # # Fm aux
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Aux, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Aux, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Aux, [3, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[24, 14], xlim=[0, 160])
-
-    # # Fm extra
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Extra, [2, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, hide_center_axis_labels=True, same_lim=True, figsize=[18, 14], xlim=[0, 160])
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Extra, [2, 3], "Angle", "Fm", f"{movement} : Force musculaire ; 15mm latéralisation humérale", cases_on=cases_hum_15Lat, hide_center_axis_labels=True, same_lim=True, figsize=[18, 14], xlim=[0, 160])
-    # PremadeGraphs.muscle_graph_from_list(current_result, Muscles_Extra, [2, 3], "Angle", "Fm", f"{movement} : Force musculaire", cases_on="all", hide_center_axis_labels=True, same_lim=True, figsize=[18, 14], xlim=[0, 160])
-
-    # # Sauvegarde des graphiques
-    # save_all_active_figures(save_folder_path="Graphiques", folder_name=f"{movement}", file_name=f"{movement}", save_format="png")
 
 # %% Sauvegarde des résultats dans excel
 
-# Sauvegarde des résultats dans excel
+# # Sauvegarde des résultats dans excel
 # result_dictionary_to_excel(Results["Coronal Elevation"], "Coronal Elevation")
 # result_dictionary_to_excel(Results["Scapular Elevation"], "Scapular Elevation")
 # result_dictionary_to_excel(Results["Sagital Elevation"], "Sagital Elevation")
-
-graph(current_result, "Angle", "Reaction", f"{movement} : Force de contact ; 0mm latéralisation humérale", cases_on=cases_hum_0Lat, composante_y=["Total"], subplot_title="anterior-posterior", subplot={"dimension": [1, 3], "number": 1})

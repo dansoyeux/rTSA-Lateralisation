@@ -72,30 +72,50 @@ MuscleVariableDictionary = {"Fm": {"MuscleFolderPath": "Output.Mus", "AnybodyVar
 
 # Variables
 VariableDictionary_Flexion = {"Angle": {"VariablePath": "Output.Model.ModelEnvironmentConnection.Drivers.Angle", "VariableDescription": "Sagittal elevation [°]"},
-                              "Reaction": {"VariablePath": "Output.Jnt.MyGlenoHumeralJoint.Constraints.Reaction.Fout", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"]},
+
+                              # Réaction a ses directions inversée pour avoir la force de contact sur la glène (exercée par l'humérus)
+                              "Reaction": {"VariablePath": "Output.Jnt.MyGlenoHumeralJoint.Constraints.Reaction.Fout", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"], "Composantes_Inverse_Direction": [True, True, True]},
                               }
 
 VariableDictionary_Abduction = {"Angle": {"VariablePath": "Output.Model.ModelEnvironmentConnection.Drivers.Angle", "VariableDescription": "Coronal elevation [°]"},
-                                "Reaction": {"VariablePath": "Output.Jnt.MyGlenoHumeralJoint.Constraints.Reaction.Fout", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"]},
+                                # Réaction a ses directions inversée pour avoir la force de contact sur la glène (exercée par l'humérus)
+                                "Reaction": {"VariablePath": "Output.Jnt.MyGlenoHumeralJoint.Constraints.Reaction.Fout", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"], "Composantes_Inverse_Direction": [True, True, True]},
                                 }
 
 VariableDictionary_Scapular = {"Angle": {"VariablePath": "Output.Model.ModelEnvironmentConnection.Drivers.Angle", "VariableDescription": "Scapular elevation [°]"},
-                               "Reaction": {"VariablePath": "Output.Jnt.MyGlenoHumeralJoint.Constraints.Reaction.Fout", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"]},
+                               # Réaction a ses directions inversée pour avoir la force de contact sur la glène (exercée par l'humérus)
+                               "Reaction": {"VariablePath": "Output.Jnt.MyGlenoHumeralJoint.Constraints.Reaction.Fout", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"], "Composantes_Inverse_Direction": [True, True, True]},
                                }
 
+"""Avec GHReaction"""
+# Variables
+VariableDictionary_Flexion_GHReactions = {"Angle": {"VariablePath": "Output.Model.ModelEnvironmentConnection.Drivers.Angle", "VariableDescription": "Sagittal elevation [°]"},
+                                          "Reaction": {"VariablePath": "Output.Jnt.MyGHReactions.My_ResultantForce.FTotalLocal", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"]},
+                                          }
+
+VariableDictionary_Abduction_GHReactions = {"Angle": {"VariablePath": "Output.Model.ModelEnvironmentConnection.Drivers.Angle", "VariableDescription": "Coronal elevation [°]"},
+                                            "Reaction": {"VariablePath": "Output.Jnt.MyGHReactions.My_ResultantForce.FTotalLocal", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"]},
+                                            }
+
+VariableDictionary_Scapular_GHReactions = {"Angle": {"VariablePath": "Output.Model.ModelEnvironmentConnection.Drivers.Angle", "VariableDescription": "Scapular elevation [°]"},
+                                           "Reaction": {"VariablePath": "Output.Jnt.MyGHReactions.My_ResultantForce.FTotalLocal", "VariableDescription": "glenohumeral reaction force [N]", "SequenceComposantes": ["AP", "IS", "ML"]},
+                                           }
 
 # Constantes (si un fichier AnyFileOut contenant des constantes est créé en même temps que le fichier h5)
 # Constantes
 ConstantsDictionary = {"AnybodyFileOutPath": "Main.Study.FileOut",  # CHEMIN D'ACCÈS ANYBODY DE L'OBJET AnyFileOut
-                       "Paramètres de simulation": ["Case", "MuscleRecruitment", "nStep", "tEnd", "GHReactions", "Movement"],
-                       "Mannequin": ["GlenohumeralFlexion", "GlenohumeralAbduction", "GlenohumeralExternalRotation"]
+                       "Paramètres de simulation": ["MuscleRecruitmentType", "nStep", "GHReaction", "Movement"],
+                       "Offsets": ["HumeralOffset", "GlenoidOffset"]
                        }
-
 
 VariableDictionary_Flexion = define_variables_to_load(VariableDictionary_Flexion, MuscleDictionary, MuscleVariableDictionary, ConstantsDictionary)
 VariableDictionary_Abduction = define_variables_to_load(VariableDictionary_Abduction, MuscleDictionary, MuscleVariableDictionary, ConstantsDictionary)
 VariableDictionary_Scapular = define_variables_to_load(VariableDictionary_Scapular, MuscleDictionary, MuscleVariableDictionary, ConstantsDictionary)
 
+"""Avec GHReaction"""
+VariableDictionary_Flexion_GHReactions = define_variables_to_load(VariableDictionary_Flexion_GHReactions, MuscleDictionary, MuscleVariableDictionary, ConstantsDictionary)
+VariableDictionary_Abduction_GHReactions = define_variables_to_load(VariableDictionary_Abduction_GHReactions, MuscleDictionary, MuscleVariableDictionary, ConstantsDictionary)
+VariableDictionary_Scapular_GHReactions = define_variables_to_load(VariableDictionary_Scapular_GHReactions, MuscleDictionary, MuscleVariableDictionary, ConstantsDictionary)
 
 # %% Chargement des fichiers .h5
 
@@ -115,11 +135,14 @@ glenoid_lateralisation_offset_list = [-10, 5]
 glenoid_superior_offset_list = [-6, 0]
 glenoid_lateral_offset_list = [0, 15]
 
+CaseNames = []
+
+
+# %% Résultats GHReactions = False
+
 Files_Abduction = []
 Files_Scapular = []
 Files_Flexion = []
-
-CaseNames = []
 
 for humeral_lateral_offset in glenoid_lateral_offset_list:
     for glenoid_lateral_offset in glenoid_lateralisation_offset_list:
@@ -140,24 +163,68 @@ Results_Flexion = load_simulation_cases(SaveDataDir, Files_Flexion, CaseNames, V
 
 Results = {"CoronalElevation": Results_Abduction, "ScapularElevation": Results_Scapular, "SagitalElevation": Results_Flexion}
 
+# %% Résultats GHReactions = True
+
+Files_Abduction_GHReactions = []
+Files_Scapular_GHReactions = []
+Files_Flexion_GHReactions = []
+
+for humeral_lateral_offset in glenoid_lateral_offset_list:
+    for glenoid_lateral_offset in glenoid_lateralisation_offset_list:
+
+        for glenoid_superior_offset in glenoid_superior_offset_list:
+
+            # Nom des fichiers par mouvements
+            Files_Abduction_GHReactions.append(f"GHReactions_CoronalElevation_humLat_{humeral_lateral_offset}_glenLat_{glenoid_lateral_offset}_glenSup_{glenoid_superior_offset}")
+            Files_Scapular_GHReactions.append(f"GHReactions_ScapularElevation_humLat_{humeral_lateral_offset}_glenLat_{glenoid_lateral_offset}_glenSup_{glenoid_superior_offset}")
+            Files_Flexion_GHReactions.append(f"GHReactions_SagitalElevation_humLat_{humeral_lateral_offset}_glenLat_{glenoid_lateral_offset}_glenSup_{glenoid_superior_offset}")
+
+Results_Abduction_GHReactions = load_simulation_cases(SaveDataDir, Files_Abduction_GHReactions, CaseNames, VariableDictionary_Abduction_GHReactions)
+Results_Scapular_GHReactions = load_simulation_cases(SaveDataDir, Files_Scapular_GHReactions, CaseNames, VariableDictionary_Scapular_GHReactions)
+Results_Flexion_GHReactions = load_simulation_cases(SaveDataDir, Files_Flexion_GHReactions, CaseNames, VariableDictionary_Flexion_GHReactions)
+
+Results_GHReactions = {"CoronalElevation": Results_Abduction_GHReactions, "ScapularElevation": Results_Scapular_GHReactions, "SagitalElevation": Results_Flexion_GHReactions}
+
 # %% Ratio d'instabilité
 
-for movement in MovementType_list:
+
+def instability_ratio(result_dictionary: dict, force_variable_name: str) -> dict:
+    """
+    Function that calculates the instability ratio = (|F_AP| + |F_IS|)/|F_ML| for each simulation case
+
+    input
+    ----------
+    result_dictionary : dict : result dictionary with simulation cases
+
+    force_variable_name : str : name of the variable that contains the force used to calculate the instability ratio
+
+    return
+    -------
+    result_dictionary : dict result dictionary with an added variable named "Instability Ratio"
+    """
+
     for case in CaseNames:
-        current_result = Results[movement][case]
+        current_result = result_dictionary[case]
 
         reactions = current_result["Reaction"]
         current_result["Instability Ratio"] = {"SequenceComposantes": ["Total"], "Description": "Instability ratio"}
         current_result["Instability Ratio"]["Total"] = (abs(reactions["IS"]) + abs(reactions["AP"])) / abs(reactions["ML"])
+
+    return result_dictionary
+
+
+# IR for each movement
+for movement in MovementType_list:
+    Results[movement] = instability_ratio(Results[movement], "Reaction")
+    Results_GHReactions[movement] = instability_ratio(Results_GHReactions[movement], "Reaction")
+
 
 # Sauvegarde des résultats dans des fichiers .pkl
 save_results_to_file(Results_Flexion, SaveSimulationsDirectory, "Results_Flexion")
 save_results_to_file(Results_Abduction, SaveSimulationsDirectory, "Results_Abduction")
 save_results_to_file(Results_Scapular, SaveSimulationsDirectory, "Results_Scapular")
 
-# %% Sauvegarde des dictionnaires de variables
-
-# # Chemin d'accès au dossier dans lequel les fichiers doivent être sauvegardés
-SaveVariablesDirectory = "Saved VariablesDictionary"
-
-save_results_to_file(VariableDictionary_Flexion, SaveVariablesDirectory, "VariableDictionary_Flexion")
+# Sauvegarde des résultats dans des fichiers .pkl
+save_results_to_file(Results_Flexion_GHReactions, SaveSimulationsDirectory, "Results_Flexion_GHReactions")
+save_results_to_file(Results_Abduction_GHReactions, SaveSimulationsDirectory, "Results_Abduction_GHReactions")
+save_results_to_file(Results_Scapular_GHReactions, SaveSimulationsDirectory, "Results_Scapular_GHReactions")
