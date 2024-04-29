@@ -10,7 +10,7 @@ ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeral
 //Comment if not using MusclesHill model 
 //
 
-# if BM_ARM_MUSCLES_RIGHT == _MUSCLES_3E_HILL_
+#if BM_ARM_MUSCLES_RIGHT == _MUSCLES_3E_HILL_
 Main.HumanModel.Calibration.RightArmCalibration0.ArmCalibrationStudy0.MechObjectExclude =  
 arrcat( 
 ObjSearchRecursive("Main.HumanModel.BodyModel.Right.ShoulderArm.Jnt.GlenoHumeralJoint","*","AnyMechObject")); 
