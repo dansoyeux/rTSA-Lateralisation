@@ -23,7 +23,7 @@ MR_QuadraticAux (simulation faites avec ce critere)
 MR_Polynomial (Default, power = 3)
 */
 #ifndef MuscleRecruitmentType
-#define MuscleRecruitmentType MR_Polynomial
+#define MuscleRecruitmentType MR_MinMaxStrict
 #endif
 
 /*------------------------SAVE OPTION------------------------*/
@@ -51,11 +51,11 @@ Lateralisation (+)/ medialisation (-) : 0mm, 5mm, 10mm, 15mm
 #endif
 
 #ifndef glenoid_distalisation
-#define glenoid_distalisation 0
+#define glenoid_distalisation -6
 #endif
 
 #ifndef glenoid_lateralisation
-#define glenoid_lateralisation 5
+#define glenoid_lateralisation -10
 #endif
 
 // Glenoid offset in mm
@@ -88,8 +88,8 @@ SagitalElevation
 */
 #ifndef MovementType
 //#define MovementType CoronalElevation
-#define MovementType ScapularElevation
-//#define MovementType SagitalElevation
+//#define MovementType ScapularElevation
+#define MovementType SagitalElevation
 #endif
 
 /*------------------------START AND END ANGLE OF ABDUCTION------------------------*/

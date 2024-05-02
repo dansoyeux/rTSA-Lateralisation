@@ -22,7 +22,7 @@ AnyOutputFile FileOut = {
   // Movement type
   AnyString Movement = Main.Model.ModelEnvironmentConnection.Drivers.Movement;
   
-  AnyEnumMuscleRecruitmentType MuscleRecruitmentType = Main.Study.InverseDynamics.Criterion.Type;
+  AnyEnumMuscleRecruitmentType MuscleRecruitment = Main.Study.InverseDynamics.Criterion.Type;
   
   //----------------SIMULATION MEASUREMENTS--------------
   AnyVec3 HumeralOffset = Main.InputVariables.humeral_offset;
