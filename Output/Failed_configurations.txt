@@ -1,0 +1,40 @@
+Fail wrapping : 
+
+19 : CoronalElevation_humLat_5_glenLat_-10_glenSup_0 : pectoralis_major_thoracic_part_10 ; pectoralis_major_clavicular_part_5
+32 : CoronalElevation_humLat_10_glenLat_-10_glenSup_-6 : teres_major_2
+
+97 : ScapularElevation_humLat_10_glenLat_-10_glenSup_-4 : pectoralis_major_thoracic_part_9
+113 : ScapularElevation_humLat_15_glenLat_-10_glenSup_-4 : pectoralis_major_clavicular_part_5
+
+128 : SagitalElevation_humLat_0_glenLat_-10_glenSup_-6 : deltoideus_posterior_part_1 ; subscapularis_1 ; subscapularis_3
+129 : SagitalElevation_humLat_0_glenLat_-10_glenSup_-4 : subscapularis_3 ; subscapularis_4
+130 : SagitalElevation_humLat_0_glenLat_-10_glenSup_-2 : subscapularis_2 ; subscapularis_1 ; subscapularis_5 ; deltoideus_posterior_part_1
+131 : SagitalElevation_humLat_0_glenLat_-10_glenSup_0 : deltoideus_posterior_part_3 ; deltoideus_posterior_part_1
+133 : SagitalElevation_humLat_0_glenLat_-5_glenSup_-4 : deltoideus_posterior_part_1 ; subscapularis_5
+144 : SagitalElevation_humLat_5_glenLat_-10_glenSup_-6 : deltoideus_posterior_part_1
+149 : SagitalElevation_humLat_5_glenLat_-5_glenSup_-4 : deltoideus_posterior_part_1
+150 : SagitalElevation_humLat_5_glenLat_-5_glenSup_-2 : deltoideus_posterior_part_1
+155 : SagitalElevation_humLat_5_glenLat_0_glenSup_0 : deltoideus_posterior_part_1
+159 : SagitalElevation_humLat_5_glenLat_5_glenSup_0 : deltoideus_posterior_part_1; deltoideus_lateral_part_3 ; deltoideus_lateral_part_4
+162 : SagitalElevation_humLat_10_glenLat_-10_glenSup_-2 : pectoralis_major_thoracic_part_10
+
+15 fails sur 177
+
+2 coronal 
+pectoralis major thoracic 10
+teres major 2
+
+2 Scapular
+pectoralis_major_thoracic_part_9
+pectoralis_major_clavicular_part_5
+
+11 Sagital
+subscapularis_1
+subscapularis_2
+subscapularis_3
+subscapularis_4
+subscapularis_5
+
+deltoideus_posterior_part_1
+deltoideus_posterior_part_3
+deltoideus_posterior_part_4
