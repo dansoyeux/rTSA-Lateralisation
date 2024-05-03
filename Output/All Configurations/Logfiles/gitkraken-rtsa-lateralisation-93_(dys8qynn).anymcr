@@ -1,0 +1,4 @@
+load "rTSA-Lateralisation.main.any" -def AutoSaveOption="1" -def GHReactionsOn="0" -def MovementType="ScapularElevation" -def MuscleRecruitmentType="MR_Polynomial" -def ResultFileName=---"\"ScapularElevation_humLat_5_glenLat_5_glenSup_-4\"" -def ResultFolderName=---"\"All configurations\"" -def glenoid_anteriorisation="0" -def glenoid_distalisation="-4" -def glenoid_lateralisation="5" -def humeral_lateralisation="5" -def rTSA="1"
+operation Main.RunApplication
+run
+exit

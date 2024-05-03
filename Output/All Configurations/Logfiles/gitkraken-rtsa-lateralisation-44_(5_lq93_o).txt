@@ -1,0 +1,58 @@
+########### MACRO #############
+load "rTSA-Lateralisation.main.any" -def AutoSaveOption="1" -def GHReactionsOn="0" -def MovementType="CoronalElevation" -def MuscleRecruitmentType="MR_Polynomial" -def ResultFileName=---"\"CoronalElevation_humLat_10_glenLat_5_glenSup_-6\"" -def ResultFolderName=---"\"All configurations\"" -def glenoid_anteriorisation="0" -def glenoid_distalisation="-6" -def glenoid_lateralisation="5" -def humeral_lateralisation="10" -def rTSA="1"
+operation Main.RunApplication
+run
+
+######### OUTPUT LOG ##########
+
+AnyBody Console Application
+AnyBodyCon.exe version : 8. 0. 1. 11638 (64-bit version) 
+Build : 19802.46560
+Copyright (c) 1999 - 2024 AnyBody Technology A/S
+
+Current path: C:\Users\Dan\Documents\Gitkraken\rTSA-Lateralisation
+#### Macro command > load "rTSA-Lateralisation.main.any" -def AutoSaveOption="1" -def GHReactionsOn="0" -def MovementType="CoronalElevation" -def MuscleRecruitmentType="MR_Polynomial" -def ResultFileName=---"\"CoronalElevation_humLat_10_glenLat_5_glenSup_-6\"" -def ResultFolderName=---"\"All configurations\"" -def glenoid_anteriorisation="0" -def glenoid_distalisation="-6" -def glenoid_lateralisation="5" -def humeral_lateralisation="10" -def rTSA="1"
+Loading  Main  :  "C:\Users\Dan\Documents\Gitkraken\rTSA-Lateralisation\rTSA-Lateralisation.main.any"
+Scanning...
+Parsing...
+Constructing model tree...
+Linking identifiers...
+Evaluating constants...
+Configuring model...
+Evaluating model...
+Loaded successfully.
+Elapsed Time : 4.183000
+#### Macro command > operation Main.RunApplication
+#### Macro command > run
+
+***************************************************************************************
+0) Operation Sequence: (Operation: Main.RunApplication): 
+0.0) Operation Sequence: (Operation: Main.HumanModel.Calibration.CalibrationSequence): 
+0.0.0) Dummy operation: (Operation: Main.HumanModel.Calibration.CalibrationSequence.PlaceHolderOpr): 
+1.0) InverseDynamics (Operation: Main.Study.InverseDynamics): 
+1.0.0) PreOperation (Operation: Main.Study.InverseDynamics.PreOperation): 
+1.0.0.0) InitialConditions (Operation: Main.Study.InitialConditions): 
+1.0.0.0) ...Design variables have been updated.
+1.0.0.1) ...Load-time positions have been re-established.
+1.0.0.2) ...Kinematic analysis completed.
+1.0.0.3) ...Dependent variables are fully updated.
+1.0) Inverse dynamic analysis...
+WARNING(OBJ.MCH.KIN7) :   C:\Users\Dan\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\AMMR\Body\AAUHuman\Arm\Muscle.any(384)  :   'deltoideus_lateral_part_3.SPLine'  :  Penetration of surface :  'Surf' :  Via-point ''O_deltoideus_lateral_part_3'' on ''SPLine'' is located below the wrapping surface''Surf'
+WARNING(OBJ.MCH.KIN7) :   C:\Users\Dan\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\AMMR\Body\AAUHuman\Arm\Muscle.any(423)  :   'deltoideus_lateral_part_4.SPLine'  :  Penetration of surface :  'Surf' :  Via-point ''O_deltoideus_lateral_part_4'' on ''SPLine'' is located below the wrapping surface''Surf'
+WARNING(OBJ.MCH.KIN7) :   C:\Users\Dan\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\AMMR\Body\AAUHuman\Arm\Muscle.any(444)  :   'deltoideus_anterior_part_1.SPLine'  :  Penetration of surface :  'Surf' :  Via-point ''O_deltoideus_anterior_part_1'' on ''SPLine'' is located below the wrapping surface''Surf'
+WARNING(OBJ.MCH.KIN7) :   C:\Users\Dan\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\AMMR\Body\AAUHuman\Arm\Muscle.any(466)  :   'deltoideus_anterior_part_2.SPLine'  :  Penetration of surface :  'Surf' :  Via-point ''O_deltoideus_anterior_part_2'' on ''SPLine'' is located below the wrapping surface''Surf'
+1.59) ...Inverse dynamic analysis completed
+2.0) save (Operation: Main.RunApplication.save): 
+#### Macro command : save(1:1)> classoperation Main.Study.Output "Save data" --type=Deep --file="C:\Users\Dan\Documents\Gitkraken\rTSA-Lateralisation/Output/All configurations/CoronalElevation_humLat_10_glenLat_5_glenSup_-6.anydata.h5"
+Main.Study.Output :  Saving output data file...
+||==============================Saving================================
+0%1%2%3%4%5%6%7%8%9%10%11%12%13%14%15%16%17%18%19%20%21%22%23%24%25%26%27%28%29%30%31%32%33%34%35%36%37%38%39%40%41%42%43%44%45%46%47%48%49%50%51%52%53%54%55%56%57%58%59%60%61%62%63%64%65%66%67%68%69%70%71%72%73%74%75%76%77%78%79%80%81%82%83%84%85%86%87%88%89%90%91%92%93%94%95%96%97%98%99%100%100%...saving succeed.
+Elapsed Time :4.141
+
+***************************************************************************************
+#### Macro command > exit
+
+Closing model...
+Saving modified values...
+Deleting loaded model...
+...Model deleted.

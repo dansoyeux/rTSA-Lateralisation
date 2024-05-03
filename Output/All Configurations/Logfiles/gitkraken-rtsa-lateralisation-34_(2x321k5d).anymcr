@@ -1,0 +1,4 @@
+load "rTSA-Lateralisation.main.any" -def AutoSaveOption="1" -def GHReactionsOn="0" -def MovementType="CoronalElevation" -def MuscleRecruitmentType="MR_Polynomial" -def ResultFileName=---"\"CoronalElevation_humLat_10_glenLat_-10_glenSup_-2\"" -def ResultFolderName=---"\"All configurations\"" -def glenoid_anteriorisation="0" -def glenoid_distalisation="-2" -def glenoid_lateralisation="-10" -def humeral_lateralisation="10" -def rTSA="1"
+operation Main.RunApplication
+run
+exit
