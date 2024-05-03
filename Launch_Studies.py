@@ -17,7 +17,7 @@ import os
 
 # %% nombre de simulation en parallèle
 
-num_processes = 5
+num_processes = 6
 
 MuscleRecruitmentType = "MR_Polynomial"
 
@@ -29,17 +29,17 @@ MovementType_list = ["CoronalElevation", "ScapularElevation", "SagitalElevation"
 
 # %% Cas de simulation
 
-# glenoid_lateralisation_offset_list = [-10, -5, 0, 5]
-# glenoid_superior_offset_list = [-6, -4, -2, 0]
-# glenoid_lateral_offset = [0, 5, 10, 15]
+glenoid_lateralisation_offset_list = [-10, -5, 0, 5]
+glenoid_superior_offset_list = [-6, -4, -2, 0]
+humeral_lateral_offset_list = [0, 5, 10, 15]
 
-glenoid_lateralisation_offset_list = [-10, 5]
-glenoid_superior_offset_list = [-6, 0]
-humeral_lateral_offset_list = [0, 15]
-
+# glenoid_lateralisation_offset_list = [-10, 5]
+# glenoid_superior_offset_list = [-6, 0]
+# humeral_lateral_offset_list = [0, 15]
 
 GHReactionsOn = 0
 
+ResultFolderName = "All configurations"
 
 # %% Script lancement simulation
 
@@ -63,6 +63,7 @@ for MovementType in MovementType_list:
                     Load('rTSA-Lateralisation.main.any',
                          defs={'MovementType': f"{MovementType}",
                                'ResultFileName': f'"{ResultFileName}"',
+                               'ResultFolderName': f'"{ResultFolderName}"',
                                'MuscleRecruitmentType': MuscleRecruitmentType,
                                'glenoid_anteriorisation': 0,
                                'glenoid_distalisation': glenoid_superior_offset,
@@ -79,7 +80,10 @@ for MovementType in MovementType_list:
 # %% Launch study without timeout
 
 app = AnyPyProcess(timeout=3600 * 100, num_processes=num_processes, keep_logfiles=True,
-                   warnings_to_include=["OBJ1", "Penetration of surface", "Failed to resolve force-dependent kinematics"],
+                   warnings_to_include=["OBJ1",
+                                        # "Penetration of surface",
+                                        "Failed to resolve force-dependent kinematics"
+                                        ],
                    fatal_warnings=True
                    # uncomment if on local pc
                    # anybodycon_path=r"C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\anybodycon.exe"

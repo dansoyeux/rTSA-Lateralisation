@@ -80,6 +80,10 @@ AnyVec3 humeral_offset = DesignVar({-humeral_lateralisation, humeral_distalisati
 #define ResultFileName "" + "ScapularElevation_" + "humLat_" + "0" + "_glenLat_" + "5" + "_glenSup_" + "0"
 #endif
 
+#ifndef ResultFolderName
+#define ResultFolderName "Results"
+#endif
+
 /*------------------------TYPE OF ABDUCTION------------------------
 CoronalElevation
 ScapularElevation
