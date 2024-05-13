@@ -29,17 +29,17 @@ MovementType_list = ["CoronalElevation", "ScapularElevation", "SagitalElevation"
 
 # %% Cas de simulation
 
-glenoid_lateralisation_offset_list = [-10, -5, 0, 5]
-glenoid_superior_offset_list = [-6, -4, -2, 0]
-humeral_lateral_offset_list = [0, 5, 10, 15]
+# glenoid_lateralisation_offset_list = [-10, -5, 0, 5]
+# glenoid_superior_offset_list = [-6, -4, -2, 0]
+# humeral_lateral_offset_list = [0, 5, 10, 15]
 
-# glenoid_lateralisation_offset_list = [-10, 5]
-# glenoid_superior_offset_list = [-6, 0]
-# humeral_lateral_offset_list = [0, 15]
+glenoid_lateralisation_offset_list = [-10, 5]
+glenoid_superior_offset_list = [-6, 0]
+humeral_lateral_offset_list = [0, 15]
 
 GHReactionsOn = 0
 
-ResultFolderName = "All configurations"
+ResultFolderName = "Results"
 
 # %% Script lancement simulation
 
@@ -86,7 +86,7 @@ app = AnyPyProcess(timeout=3600 * 100, num_processes=num_processes, keep_logfile
                                         ],
                    fatal_warnings=True
                    # uncomment if on local pc
-                   # anybodycon_path=r"C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\anybodycon.exe"
+                   , anybodycon_path=r"C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\anybodycon.exe"
                    )
 app.start_macro(macrolist
                 # , logfile="logfile"

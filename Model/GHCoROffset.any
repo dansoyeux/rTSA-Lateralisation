@@ -58,7 +58,15 @@ Main.Seg.Scapula = {
     };  
 
   }; //gh_offseted
-       
+ 
+  gh = {AnyDrawRefFrame drw = {
+      Visible=Off;
+      RGB = {0, 0,0};
+    };
+  
+  };
+  
+  
 }; //Seg.Scapula
 
 
@@ -68,27 +76,36 @@ Main.Seg.Humerus = {
   // The position corresponds to the centernode position of the glenoid
   AnyRefNode gh_offset = {
     // positions at 15deg of coronal abduction
-    AnyVec3 Centernode_r = {-0.07099456, 1.615555, 0.1719421};
-    AnyVec3 Humerus_r = {-0.05774558, 1.619486, 0.1936576};
-    AnyMat33 Humerus_Axes = {{-0.02926301, -0.109211, -0.9935878}, 
-      {0.2571594, 0.9597321, -0.1130636}, 
-      {0.9659258, -0.258819, -1.110223e-16}};
+    AnyVec3 Centernode_r = {-0.06221421, 1.639598, 0.1768964};
+    AnyVec3 Humerus_r = {-0.04763792, 1.646159, 0.1970712};
+    AnyMat33 Humerus_Axes = {{0.3781873, -0.1113459, -0.9190084}, 
+{0.2033087, 0.9784929, -0.03488805}, 
+{0.9031279, -0.1736482, 0.3926912}};
     
     //Humeral center of rotation in rTSA reference position
     // (global_centernode - global_humerus position) = offset between the two nodes in the global coordinate system
     // the multiply by Humerus.Axes to convert in local humeral coordinate system
-//    AnyVec3 humerus_cor_pos_reference = (Centernode_r - Humerus_r) * Humerus_Axes; //after initialpos for 15deg abduction = {-0.02159875, 0.003294611, 0.01360848}
+//    AnyVec3 humerus_cor_pos_reference = (Centernode_r - Humerus_r) * Humerus_Axes; //after initialpos for 15deg abduction = {-0.0250669, -0.001293564, 0.005702167}
      
     // Position reference ajustee pour correspondre a distance minimale de AD dans l'article de werthel et al. (11.1 mm pour le delta III)
-    AnyVec3 humerus_cor_pos_reference = {-0.0111, 0.01360848, 0.0};  
-
+    AnyVec3 humerus_cor_pos_reference = {-0.0111, 0.0, 0};
+//    AnyVec3 humerus_cor_pos_reference = {-0.0250669, 0.0, 0};
+    
     sRel = humerus_cor_pos_reference + Main.InputVariables.humeral_offset/1000; 
     AnyDrawRefFrame drw = {
-      Visible=Off;
-      RGB = {0, 1,0};
+      Visible=On;
+      RGB = {1, 0,0};
     };
     
   };
+  
+  
+  gh = {AnyDrawRefFrame drw = {
+      Visible=On;
+      RGB = {0, 0,0};
+    };
+};
+  
 }; // Humerus
 
 // New glenohumeral joint
