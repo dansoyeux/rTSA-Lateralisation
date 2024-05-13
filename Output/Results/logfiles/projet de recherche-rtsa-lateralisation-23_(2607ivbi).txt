@@ -1,0 +1,43 @@
+########### MACRO #############
+load "rTSA-Lateralisation.main.any" -def AutoSaveOption="1" -def GHReactionsOn="0" -def MovementType="SagitalElevation" -def MuscleRecruitmentType="MR_Polynomial" -def ResultFileName=---"\"SagitalElevation_humLat_15_glenLat_5_glenSup_0\"" -def ResultFolderName=---"\"Results\"" -def glenoid_anteriorisation="0" -def glenoid_distalisation="0" -def glenoid_lateralisation="5" -def humeral_lateralisation="15" -def rTSA="1"
+operation Main.RunApplication
+run
+
+######### OUTPUT LOG ##########
+
+AnyBody Console Application
+AnyBodyCon.exe version : 8. 0. 1. 11638 (64-bit version) 
+Build : 19802.46560
+Copyright (c) 1999 - 2024 AnyBody Technology A/S
+
+Current path: D:\Mes Documents\ETS\Projet de recherche\rTSA-Lateralisation
+#### Macro command > load "rTSA-Lateralisation.main.any" -def AutoSaveOption="1" -def GHReactionsOn="0" -def MovementType="SagitalElevation" -def MuscleRecruitmentType="MR_Polynomial" -def ResultFileName=---"\"SagitalElevation_humLat_15_glenLat_5_glenSup_0\"" -def ResultFolderName=---"\"Results\"" -def glenoid_anteriorisation="0" -def glenoid_distalisation="0" -def glenoid_lateralisation="5" -def humeral_lateralisation="15" -def rTSA="1"
+Loading  Main  :  "D:\Mes Documents\ETS\Projet de recherche\rTSA-Lateralisation\rTSA-Lateralisation.main.any"
+Scanning...
+Parsing...
+Constructing model tree...
+Linking identifiers...
+Evaluating constants...
+Configuring model...
+Evaluating model...
+Loaded successfully.
+Elapsed Time : 11.850000
+#### Macro command > operation Main.RunApplication
+#### Macro command > run
+
+***************************************************************************************
+0) Operation Sequence: (Operation: Main.RunApplication): 
+0.0) Operation Sequence: (Operation: Main.HumanModel.Calibration.CalibrationSequence): 
+0.0.0) Dummy operation: (Operation: Main.HumanModel.Calibration.CalibrationSequence.PlaceHolderOpr): 
+1.0) InverseDynamics (Operation: Main.Study.InverseDynamics): 
+1.0.0) PreOperation (Operation: Main.Study.InverseDynamics.PreOperation): 
+1.0.0.0) InitialConditions (Operation: Main.Study.InitialConditions): 
+1.0.0.0) ...Design variables have been updated.
+1.0.0.1) ...Load-time positions have been re-established.
+1.0.0.2) ...Kinematic analysis completed.
+1.0.0.3) ...Dependent variables are fully updated.
+1.0) Inverse dynamic analysis...
+WARNING(OBJ.MCH.KIN7) :   C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\AMMR\Body\AAUHuman\Arm\Muscle.any(384)  :   'deltoideus_lateral_part_3.SPLine'  :  Penetration of surface :  'Surf' :  Via-point ''O_deltoideus_lateral_part_3'' on ''SPLine'' is located below the wrapping surface''Surf'
+WARNING(OBJ.MCH.KIN7) :   C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\AMMR\Body\AAUHuman\Arm\Muscle.any(423)  :   'deltoideus_lateral_part_4.SPLine'  :  Penetration of surface :  'Surf' :  Via-point ''O_deltoideus_lateral_part_4'' on ''SPLine'' is located below the wrapping surface''Surf'
+WARNING(OBJ.MCH.KIN7) :   C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\AMMR\Body\AAUHuman\Arm\Muscle.any(365)  :   'deltoideus_lateral_part_1.SPLine'  :  Penetration of surface :  'Surf' :  Via-point ''O_deltoideus_lateral_part_1'' on ''SPLine'' is located below the wrapping surface''Surf'
+WARNING(OBJ.MCH.KIN7) :   C:\Users\user\AppData\Local\Programs\AnyBody Technology\AnyBody.8.0\AMMR\Body\AAUHuman\Arm\Muscle.any(405)  :   'deltoideus_lateral_part_2.SPLine'  :  Penetration of surface :  'Surf' :  Via-point ''O_deltoideus_lateral_part_2'' on ''SPLine'' is located below the wrapping surface''Surf'
