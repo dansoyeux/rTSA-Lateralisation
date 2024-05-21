@@ -16,6 +16,11 @@ AnyOutputFile FileOut = {
     ShortenNamesOnOff = Off;
     
   };     
+  // Anybody version
+  AnyString AMMRVersion = AMMR_VERSION;
+  AnyStringVar AnybodyVersion = strval(ANYBODY_V1) + "." + strval(ANYBODY_V2) + "." + strval(ANYBODY_V3) + "." + strval(ANYBODY_V4);
+
+  
   //-----------------SIMULATIONS PARAMETERS----------------------------
   // Input Values 
   AnyVar nStep = Main.Study.nStep;
